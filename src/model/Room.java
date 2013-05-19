@@ -8,6 +8,10 @@ public class Room {
 	int capacity;
 	Boolean status;
 	
+	public Room(){
+		
+	}
+	
 	public Room(int roomId, String type, int price, int capacity, Boolean status) {
 		super();
 		this.roomId = roomId;
