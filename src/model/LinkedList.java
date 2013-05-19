@@ -108,8 +108,11 @@ public class LinkedList
     //Solution:
 
     public void print(){
-        for (DoubleNode curr = head; curr != null; curr = curr.getNext()) {
+    	DoubleNode curr=null;
+        for (int i=1; i<=count; i++) {
+        	if(i==1){curr=head;}
             System.out.println(curr.getValue());
+            curr.getNext();
         } 
     }
 
