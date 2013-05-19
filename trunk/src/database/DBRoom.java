@@ -85,7 +85,7 @@ public class DBRoom implements IFDBRoom {
 			rc = stmt.executeUpdate(query);
 
 			stmt.close();
-		}// slut try
+		}// end try
 		catch (Exception ex) {
 			System.out.println("Update exception in Room db: " + ex);
 		}
