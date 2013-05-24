@@ -16,4 +16,6 @@ public interface IFDBPerson {
 	public int updatePerson(Person person);
 	//delete a Person;
 	public int deletePerson(int personId);
+	//get one person by name
+	public LinkedList searchPersonsByName(String name, boolean retrieveAssociation);
 }
