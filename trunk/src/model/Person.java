@@ -19,6 +19,14 @@ public class Person {
 		this.email = email;
 	}
 	
+	public Person(String firstName, String surName, String address, String phoneNo, String email) {
+		this.firstName = firstName;
+		this.surName = surName;
+		this.address = address;
+		this.phoneNo = phoneNo;
+		this.email = email;
+	}
+	
 	public Person() {
 	
 	}
