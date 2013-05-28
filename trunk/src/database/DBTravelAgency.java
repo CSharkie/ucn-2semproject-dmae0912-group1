@@ -15,7 +15,7 @@ public class DBTravelAgency {
 
 		// Implements the methods from the interface
 		// get all TravelAgencys
-		public LinkedList getAllTravelAgencys(boolean retrieveAssociation) {
+		public LinkedList<TravelAgency> getAllTravelAgencys(boolean retrieveAssociation) {
 			return miscWhere("", retrieveAssociation);
 		}
 		
@@ -27,7 +27,7 @@ public class DBTravelAgency {
 		}
 
 		// find one TravelAgency having the name
-		public LinkedList searchTravelAgencysByName(String name, boolean retrieveAssociation) {
+		public LinkedList<TravelAgency> searchTravelAgencysByName(String name, boolean retrieveAssociation) {
 			String wClause = "Name LIKE '%" + name + "%'";
 			System.out.println("TravelAgency " + wClause);
 			return miscWhere(wClause, retrieveAssociation);
@@ -114,10 +114,10 @@ public class DBTravelAgency {
 		// private methods
 		// michWere is used whenever we want to select more than one TravelAgency
 
-		private LinkedList miscWhere(String wClause,
+		private LinkedList<TravelAgency> miscWhere(String wClause,
 				boolean retrieveAssociation) {
 			ResultSet results;
-			LinkedList list = new LinkedList();
+			LinkedList<TravelAgency> list = new LinkedList<TravelAgency>();
 
 			String query = buildQuery(wClause);
 

@@ -15,7 +15,7 @@ public class DBPerson implements IFDBPerson {
 	
 	// Implements the methods from the interface
 		// get all Persons
-		public LinkedList getAllPersons(boolean retriveAssociation) {
+		public LinkedList<Person> getAllPersons(boolean retriveAssociation) {
 			return miscWhere("", retriveAssociation);
 		}
 		
@@ -27,7 +27,7 @@ public class DBPerson implements IFDBPerson {
 		}
 
 		// find one Person having the name
-		public LinkedList searchPersonsByName(String name, boolean retriveAssociation) {
+		public LinkedList<Person> searchPersonsByName(String name, boolean retriveAssociation) {
 			String wClause = "Name LIKE '%" + name + "%'";
 			System.out.println("Person " + wClause);
 			return miscWhere(wClause, retriveAssociation);
@@ -122,10 +122,10 @@ public class DBPerson implements IFDBPerson {
 		// private methods
 		// michWere is used whenever we want to select more than one Person
 
-		private LinkedList miscWhere(String wClause,
+		private LinkedList<Person> miscWhere(String wClause,
 				boolean retrieveAssociation) {
 			ResultSet results;
-			LinkedList list = new LinkedList();
+			LinkedList<Person> list = new LinkedList<Person>();
 
 			String query = buildQuery(wClause);
 
@@ -217,7 +217,7 @@ public class DBPerson implements IFDBPerson {
 		}
 
 		@Override
-		public LinkedList searchPersonByType(String type, boolean retrieveAssociation) {
+		public LinkedList<Person> searchPersonByType(String type, boolean retrieveAssociation) {
 			// TODO Auto-generated method stub
 			return null;
 		}

@@ -5,11 +5,11 @@ import model.TravelAgency;
 
 public interface IFDBTravelAgency {
 		//getAllTravelAgencies
-		public LinkedList getAllTravelAgencies(boolean retrieveAssociation);
+		public LinkedList<TravelAgency> getAllTravelAgencies(boolean retrieveAssociation);
 	    //get one TravelAgency by ID
 		public TravelAgency searchTravelAgencyById(int agencyId, boolean retrieveAssociation);
 		//get one TravelAgency by name
-		public LinkedList searchTravelAgencyByName(String name, boolean retrieveAssociation);
+		public LinkedList<TravelAgency> searchTravelAgencyByName(String name, boolean retrieveAssociation);
 		
 		//insert a new Travel Agency
 		public int insertTravelAgency(TravelAgency travelAgency) throws Exception;

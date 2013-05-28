@@ -1,10 +1,10 @@
 package model;
 
-public class DoubleNode{
+public class DoubleNode<E>{
 	
-	private Object value;
-	private DoubleNode next;
-	private DoubleNode prev;
+	private E value;
+	private DoubleNode<E> next;
+	private DoubleNode<E> prev;
 
 	/**
 	 * Constructors for objects of class DoubleNode
@@ -16,34 +16,35 @@ public class DoubleNode{
 		prev= null;
 	}
 
-	public DoubleNode(Object v, DoubleNode n, DoubleNode p)
+	public DoubleNode(E v, DoubleNode<E> n, DoubleNode<E> p)
 	{
 		value= v;
 		next= n;
 		prev= p;
 	}
 	
-	public Object getValue()
+	public E getValue()
 	{
 	    return value;
 	}
-	public DoubleNode getNext()
+	public DoubleNode<E> getNext()
 	{
 	    return next;
 	}
-	public DoubleNode getPrev()
+	public DoubleNode<E> getPrev()
 	{
 	    return prev;
 	}
+	@SuppressWarnings("unchecked")
 	public void setValue(Object v)
 	{
-	    value= v;
+	    value= (E) v;
 	}
-	public void setNext(DoubleNode n)
+	public void setNext(DoubleNode<E> n)
 	{
 	    next= n;
 	}
-	public void setPrev(DoubleNode p)
+	public void setPrev(DoubleNode<E> p)
 	{
 	    prev= p;
 	}

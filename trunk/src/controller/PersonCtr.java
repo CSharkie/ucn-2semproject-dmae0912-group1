@@ -10,13 +10,13 @@ public class PersonCtr {
 		
 	}
 	
-	public LinkedList getAllPersons(){
+	public LinkedList<Person> getAllPersons(){
 		IFDBPerson dbCust=new DBPerson();
-		LinkedList linkedList = new LinkedList();
+		LinkedList<Person> linkedList = new LinkedList<Person>();
 		linkedList = dbCust.getAllPersons(false);
 		return linkedList;
 	}
-	public LinkedList searchPersonsByName(String name){
+	public LinkedList<Person> searchPersonsByName(String name){
 		IFDBPerson dbCust=new DBPerson();
 		return dbCust.searchPersonsByName(name, true);
 	}
