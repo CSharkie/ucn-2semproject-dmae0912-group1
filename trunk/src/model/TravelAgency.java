@@ -8,6 +8,10 @@ public class TravelAgency {
 	String phoneNo;
 	String email;
 	
+	public TravelAgency(){
+		
+	}
+	
 	public TravelAgency(int agencyId, String name, int discount,
 			String address, String phoneNo, String email) {
 		super();
