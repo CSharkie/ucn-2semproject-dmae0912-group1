@@ -14,24 +14,23 @@ public class DBRoom implements IFDBRoom {
 
 	// Implements the methods from the interface
 	// get all Rooms
-	public LinkedList getAllRooms(boolean retriveAssociation) {
-		return miscWhere("", retriveAssociation);
+	public LinkedList getAllRooms(boolean retrieveAssociation) {
+		return miscWhere("", retrieveAssociation);
 	}
 	
 	// get one Room having the ID
 	public Room searchRoomById(int RoomId,
-			boolean retriveAssociation) {
+			boolean retrieveAssociation) {
 		String wClause = " RoomId = '" + RoomId + "'";
-		return singleWhere(wClause, retriveAssociation);
+		return singleWhere(wClause, retrieveAssociation);
 	}
 
-	// find one Room having the name
-	public LinkedList searchRoomsByName(String name, boolean retriveAssociation) {
-		String wClause = "Name LIKE '%" + name + "%'";
+	public LinkedList searchRoomsByType(String type, boolean retrieveAssociation) {
+		String wClause = "Type LIKE '%" + type + "%'";
 		System.out.println("Room " + wClause);
-		return miscWhere(wClause, retriveAssociation);
+		return miscWhere(wClause, retrieveAssociation);
 	}
-
+	
 	// insert a new Room
 	public int insertRoom(Room room) throws Exception { // call to get
 																// the next Id
@@ -127,14 +126,7 @@ public class DBRoom implements IFDBRoom {
 			while (results.next()) {
 				Room roomObj = new Room();
 				roomObj = buildRoom(results);
-				/*
-				if (retrieveAssociation) {
-					IFDBSalesOrder salesOrders = new DBSalesOrder();
-					LinkedList<SalesOrder> orders = salesOrders.getAllSalesOrdersByRoomId(roomObj.getRoomId(), false);
-					roomObj.setSalesOrders(orders);
-					System.out.println("Orders are selected");
-				}
-				*/
+				
 				list.add(roomObj);
 			}// end while
 			stmt.close();
@@ -162,14 +154,7 @@ public class DBRoom implements IFDBRoom {
 			if (results.next()) {
 				roomObj = buildRoom(results);
 				stmt.close();
-				/*
-				if (retrieveAssociation) {
-					IFDBSalesOrder salesOrders = new DBSalesOrder();
-					LinkedList<SalesOrder> orders = salesOrders.getAllSalesOrdersByRoomId(roomObj.getRoomId(), false);
-					roomObj.setSalesOrders(orders);
-					System.out.println("Orders are selected");
-				}
-				*/
+				
 			} else { // no Room was found
 				roomObj = null;
 			}
@@ -203,12 +188,6 @@ public class DBRoom implements IFDBRoom {
 			System.out.println("error in building the Room object");
 		}
 		return roomObj;
-	}
-
-	@Override
-	public LinkedList searchRoomByType(String type, boolean retrieveAssociation) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 
