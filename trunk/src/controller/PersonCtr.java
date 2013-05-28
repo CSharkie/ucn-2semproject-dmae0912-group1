@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.List;
-
 import model.Person;
 import model.LinkedList;
 import database.*;
