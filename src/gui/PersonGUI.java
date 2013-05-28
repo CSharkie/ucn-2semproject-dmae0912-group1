@@ -368,13 +368,13 @@ public class PersonGUI extends Composite {
 		});
 
 		showAllPersons();
-
+		
 	}
 
 	private void showAllPersons() {
 		table.clearAll();
 		table.setItemCount(0);
-		LinkedList persons = persCtr.getAllPersons();
+		LinkedList<Person> persons = persCtr.getAllPersons();
 		for (Person person : persons) {
 			TableItem item = new TableItem(table, SWT.NONE);
 			item.setText(0, String.valueOf(person.getPersonId()));
@@ -387,7 +387,7 @@ public class PersonGUI extends Composite {
 	private void showSearchedPersons(String name) {
 		table.clearAll();
 		table.setItemCount(0);
-		LinkedList persons = persCtr.searchPersonsByName(name);
+		LinkedList<Person> persons = persCtr.searchPersonsByName(name);
 		for (Person person : persons) {
 			TableItem item = new TableItem(table, SWT.NONE);
 			item.setText(0, String.valueOf(person.getPersonId()));

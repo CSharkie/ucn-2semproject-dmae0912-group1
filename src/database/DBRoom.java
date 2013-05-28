@@ -14,7 +14,7 @@ public class DBRoom implements IFDBRoom {
 
 	// Implements the methods from the interface
 	// get all Rooms
-	public LinkedList getAllRooms(boolean retrieveAssociation) {
+	public LinkedList<Room> getAllRooms(boolean retrieveAssociation) {
 		return miscWhere("", retrieveAssociation);
 	}
 	
@@ -25,7 +25,7 @@ public class DBRoom implements IFDBRoom {
 		return singleWhere(wClause, retrieveAssociation);
 	}
 
-	public LinkedList searchRoomsByType(String type, boolean retrieveAssociation) {
+	public LinkedList<Room> searchRoomsByType(String type, boolean retrieveAssociation) {
 		String wClause = "Type LIKE '%" + type + "%'";
 		System.out.println("Room " + wClause);
 		return miscWhere(wClause, retrieveAssociation);
@@ -111,10 +111,10 @@ public class DBRoom implements IFDBRoom {
 	// private methods
 	// michWere is used whenever we want to select more than one Room
 
-	private LinkedList miscWhere(String wClause,
+	private LinkedList<Room> miscWhere(String wClause,
 			boolean retrieveAssociation) {
 		ResultSet results;
-		LinkedList list = new LinkedList();
+		LinkedList<Room> list = new LinkedList<Room>();
 
 		String query = buildQuery(wClause);
 

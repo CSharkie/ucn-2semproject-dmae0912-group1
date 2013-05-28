@@ -12,9 +12,9 @@ public class RoomCtr {
 		
 	}
 	
-	public LinkedList getAllRooms(){
+	public LinkedList<Room> getAllRooms(){
 		IFDBRoom dbRoom=new DBRoom();
-		LinkedList list = new LinkedList();
+		LinkedList<Room> list = new LinkedList<Room>();
 		list = dbRoom.getAllRooms(false);
 		return list;
 	}
@@ -22,9 +22,9 @@ public class RoomCtr {
 		IFDBRoom dbRoom=new DBRoom();
 		return dbRoom.searchRoomById(RoomId, true);
 	}
-	public LinkedList searchRoomsByType(String type){
+	public LinkedList<Room> searchRoomsByType(String type){
 		IFDBRoom dbRoom=new DBRoom();
-		LinkedList list=new LinkedList();
+		LinkedList<Room> list=new LinkedList<Room>();
 		list=dbRoom.searchRoomsByType(type, false);
 		return list;
 	}
