@@ -21,7 +21,7 @@ public class Guest extends Person {
 	}
 	
 	public Guest() {
-	
+		super();
 	}
 
 	public String getPassportNo() {
@@ -47,8 +47,4 @@ public class Guest extends Person {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	
-	
-	
-
 }
