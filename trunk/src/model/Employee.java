@@ -4,8 +4,15 @@ public class Employee extends Person {
 	
 	int salary;
 	String type;
+	
 	public Employee(int salary, String type) {
-		super();
+		this.salary = salary;
+		this.type = type;
+	}
+	
+	public Employee(int personId, String firstName, String surName,
+			String address, String phoneNo, String email, int salary, String type) {
+		super(personId, firstName, surName, address, phoneNo, email);
 		this.salary = salary;
 		this.type = type;
 	}
