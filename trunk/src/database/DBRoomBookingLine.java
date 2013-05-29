@@ -1,12 +1,13 @@
 package database;
 
+import model.Room;
 import model.RoomBookingLine;
 
 import java.sql.*;
 import model.LinkedList;
 
 
-public class DBRoomBookingLine implements IFDBRoomBookingLine {
+public class DBRoomBookingLine extends DBBookingLine implements IFDBRoomBookingLine {
 	private Connection con;
 	
 	/** Creates a new instance of DBRoomBookingLine */
@@ -23,7 +24,7 @@ public class DBRoomBookingLine implements IFDBRoomBookingLine {
 		// get one RoomBookingLine having the ID
 		public RoomBookingLine searchRoomBookingLineById(int roomBookingLineId,
 				boolean retriveAssociation) {
-			String wClause = " PersonId = '" + roomBookingLineId + "'";
+			String wClause = " r.bookingLineId = '" + roomBookingLineId + "'";
 			return singleWhere(wClause, retriveAssociation);
 		}
 
@@ -31,55 +32,48 @@ public class DBRoomBookingLine implements IFDBRoomBookingLine {
 		public int insertRoomBookingLine(RoomBookingLine roomBookingLine) throws Exception { // call to get
 																	// the next Id
 																	// number
-			int nextId = getMax.getMaxId("Select max(bookingLineId) from BookingLine");
-			nextId = nextId + 1;
+			int nextId = super.insertBookingLine(roomBookingLine);
 			System.out.println("next ID = " + nextId);
 			roomBookingLine.setBookingLineId(nextId);
 			int rc = -1;
-			String query = "INSERT INTO BookingLine(bookingLineId, startDateTime, endDateTime, subtotal)  VALUES('"
-					+ roomBookingLine.getBookingLineId()
+			String query = "INSERT INTO RoomBookingLine(bookingLineId, roomId, depositStatus, checkInDateTime) VALUES ('"
+					+ nextId
 					+ "','"
-					+ roomBookingLine.getStartDateTime()
+					+ roomBookingLine.getRoom().getRoomId()
 					+ "','"
-					+ roomBookingLine.getEndDateTime()
+					+ roomBookingLine.getDepositStatus()
 					+ "','"
-					+ roomBookingLine.getSubtotal()
+					+ roomBookingLine.getCheckInDateTime()
 					+ "');";
 
 			System.out.println("insert : " + query);
-			try { // insert new BookingLine
+			try { // insert new RoomBookingLine
 				Statement stmt = con.createStatement();
 				stmt.setQueryTimeout(5);
 				rc = stmt.executeUpdate(query);
 				stmt.close();
 			}// end try
 			catch (SQLException ex) {
-				System.out.println("Person is not inserted");
-				throw new Exception("Person is not inserted");
+				System.out.println("RoomBookingLine is not inserted");
+				throw new Exception("RoomBookingLine is not inserted");
 			}
 			return (rc);
 		}
 
 		@Override
-		public int updatePerson(Person Person) {
-			Person PersonObj = Person;
+		public int updateRoomBookingLine(RoomBookingLine roomBookingLine) {
 			int rc = -1;
-
-			String query = "UPDATE Person SET " 
-					+ "address ='" + PersonObj.getAddress()
+			super.updateBookingLine(roomBookingLine);
+			String query = "UPDATE RoomBookingLine SET " 
+					+ "roomId ='" + roomBookingLine.getRoom().getRoomId()
 					+ "', " 
-					+ "email ='" + PersonObj.getEmail()
+					+ "depositStatus ='" + roomBookingLine.getDepositStatus()
 					+ "', "
-					+ "firstName ='" + PersonObj.getFirstName()
-					+ "', " 
-					+ "surName ='" + PersonObj.getSurName()
-					+ "', " 
-					+ "phoneNo ='" + PersonObj.getPhoneNo()
-					+ "' " 
-					+ " WHERE PersonId = '" + PersonObj.getPersonId()
+					+ "checkInDateTime = '" + roomBookingLine.getCheckInDateTime()
+					+ "' WHERE bookingLineId = '" + roomBookingLine.getBookingLineId()
 					+ "'";
 			System.out.println("Update query:" + query);
-			try { // update Person
+			try { // update RoomBookingLine
 				Statement stmt = con.createStatement();
 				stmt.setQueryTimeout(5);
 				rc = stmt.executeUpdate(query);
@@ -87,46 +81,35 @@ public class DBRoomBookingLine implements IFDBRoomBookingLine {
 				stmt.close();
 			}// end try
 			catch (Exception ex) {
-				System.out.println("Update exception in Person db: " + ex);
+				System.out.println("Update exception in RoomBookingLine db: " + ex);
 			}
 			return (rc);
 		}
 
-		public int deletePerson(int PersonId) {
-			int rc = -1;
-
-			String query = "DELETE FROM Person WHERE PersonId = '" + PersonId + "'";
-			System.out.println(query);
-			try { // delete from Person
-				Statement stmt = con.createStatement();
-				stmt.setQueryTimeout(5);
-				rc = stmt.executeUpdate(query);
-				stmt.close();
-			}// end try
-			catch (Exception ex) {
-				System.out.println("Delete exception in Person db: " + ex);
-			}
-			return (rc);
+		public int deleteRoomBookingLine(int roomBookingLineId) {
+			// just delete bookingLine, the DBMS will do the rest
+			return super.deleteBookingLine(roomBookingLineId);
 		}
 
 		// private methods
-		// michWere is used whenever we want to select more than one Person
+		// michWere is used whenever we want to select more than one RoomBookingLine
 
-		private LinkedList<Person> miscWhere(String wClause,
+		private LinkedList<RoomBookingLine> miscWhere(String wClause,
 				boolean retrieveAssociation) {
 			ResultSet results;
-			LinkedList<Person> list = new LinkedList<Person>();
+			LinkedList<RoomBookingLine> list = new LinkedList<RoomBookingLine>();
 
 			String query = buildQuery(wClause);
 
-			try { // read the Person from the database
+			try { // read the RoomBookingLine from the database
 				Statement stmt = con.createStatement();
 				stmt.setQueryTimeout(5);
 				results = stmt.executeQuery(query);
 
 				while (results.next()) {
-					Person PersonObj = new Person();
-					PersonObj = buildPerson(results);
+					RoomBookingLine roomBookingLine = new RoomBookingLine();
+					roomBookingLine = buildRoomBookingLine(results);
+					//TODO retrieveAssociation
 					/*
 					if (retrieveAssociation) {
 						IFDBSalesOrder salesOrders = new DBSalesOrder();
@@ -135,7 +118,7 @@ public class DBRoomBookingLine implements IFDBRoomBookingLine {
 						System.out.println("Orders are selected");
 					}
 					*/
-					list.add(PersonObj);
+					list.add(roomBookingLine);
 				}// end while
 				stmt.close();
 
@@ -147,21 +130,22 @@ public class DBRoomBookingLine implements IFDBRoomBookingLine {
 			return list;
 		}
 
-		// Single where is used when we only select one Person
-		private Person singleWhere(String wClause, boolean retrieveAssociation) {
+		// Single where is used when we only select one RoomBookingLine
+		private RoomBookingLine singleWhere(String wClause, boolean retrieveAssociation) {
 			ResultSet results;
-			Person PersonObj = new Person();
+			RoomBookingLine roomBookingLine = new RoomBookingLine();
 
 			String query = buildQuery(wClause);
 			System.out.println(query);
-			try { // read the Person from the database
+			try { // read the RoomBookingLine from the database
 				Statement stmt = con.createStatement();
 				stmt.setQueryTimeout(5);
 				results = stmt.executeQuery(query);
 
 				if (results.next()) {
-					PersonObj = buildPerson(results);
+					roomBookingLine = buildRoomBookingLine(results);
 					stmt.close();
+					//TODO retrieveAssociation
 					/*
 					if (retrieveAssociation) {
 						IFDBSalesOrder salesOrders = new DBSalesOrder();
@@ -170,19 +154,19 @@ public class DBRoomBookingLine implements IFDBRoomBookingLine {
 						System.out.println("Orders are selected");
 					}
 					*/
-				} else { // no Person was found
-					PersonObj = null;
+				} else { // no RoomBookingLine was found
+					roomBookingLine = null;
 				}
 			}// end try
 			catch (Exception e) {
 				System.out.println("Query exception: " + e);
 			}
-			return PersonObj;
+			return roomBookingLine;
 		}
 
 		// method to build the query
 		private String buildQuery(String wClause) {
-			String query = "SELECT PersonId, type, price, capacity, status  FROM Person";
+			String query = "SELECT b.bookingLineId, b.startDateTime, b.endDateTime, b.subtotal, r.roomId, r.depositStatus, r.checkInDateTime FROM BookingLine b JOIN RoomBookingLine r ON b.bookingLineId = r.bookingLineId";
 
 			if (wClause.length() > 0)
 				query = query + " WHERE " + wClause;
@@ -190,26 +174,20 @@ public class DBRoomBookingLine implements IFDBRoomBookingLine {
 			return query;
 		}
 
-		// method to build an Person object
-		private Person buildPerson(ResultSet results) {
-			Person PersonObj = new Person();
-			try { // the columns from the table Person are used
-				PersonObj.setPersonId(results.getInt("personId"));
-				PersonObj.setAddress(results.getString("address"));
-				PersonObj.setEmail(results.getString("email"));
-				PersonObj.setFirstName(results.getString("firstName"));
-				PersonObj.setSurName(results.getString("surName"));
-				PersonObj.setPhoneNo(results.getString("phoneNo"));
+		// method to build an RoomBookingLine object
+		private RoomBookingLine buildRoomBookingLine(ResultSet results) {
+			RoomBookingLine roomBookingLine = new RoomBookingLine();
+			try { // the columns from the table RoomBookingLine are used
+				roomBookingLine.setBookingLineId(results.getInt("bookingLineId"));
+				roomBookingLine.setStartDateTime(results.getTimestamp("startDateTime"));
+				roomBookingLine.setEndDateTime(results.getTimestamp("endDateTime"));
+				roomBookingLine.setSubtotal(results.getDouble("subtotal"));
+				roomBookingLine.setRoom(new Room(results.getInt("roomId")));
+				roomBookingLine.setDepositStatus(results.getString("depositStatus"));
+				roomBookingLine.setCheckInDateTime(results.getTimestamp("checkInDateTime"));
 			} catch (Exception e) {
-				System.out.println("error in building the Person object");
+				System.out.println(e);
 			}
-			return PersonObj;
+			return roomBookingLine;
 		}
-
-		@Override
-		public LinkedList<Person> searchPersonByType(String type, boolean retrieveAssociation) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
 }

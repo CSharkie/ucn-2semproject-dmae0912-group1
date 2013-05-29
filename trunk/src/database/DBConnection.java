@@ -3,7 +3,7 @@ package database;
 import java.sql.*;
 
 public class DBConnection {
-	private static final String driver = "jDBc:sqlserver://balder.ucn.dk";
+	private static final String driver = "jdbc:sqlserver://balder.ucn.dk";
 	   
     private static final String  databaseName = ";databaseName=dmae0912_1";
     private static String  userName = "; user=dmae0912_1";
@@ -23,7 +23,7 @@ public class DBConnection {
         try{
             //load af driver
             //SQL Server
-            Class.forName("com.microsoft.sqlserver.jDBc.SQLServerDriver");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             System.out.println("Load af class ok");
           
         }

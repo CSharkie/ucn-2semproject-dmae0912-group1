@@ -13,12 +13,15 @@ public class Room {
 	}
 	
 	public Room(int roomId, String type, int price, int capacity, Boolean status) {
-		super();
 		this.roomId = roomId;
 		this.type = type;
 		this.price = price;
 		this.capacity = capacity;
 		this.status = status;
+	}
+
+	public Room(int roomId) {
+		this.roomId = roomId;
 	}
 
 	public int getRoomId() {

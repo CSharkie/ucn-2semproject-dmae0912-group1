@@ -367,8 +367,7 @@ public class PersonGUI extends Composite {
 			}
 		});
 
-		showAllPersons();
-		
+		//showAllPersons();
 	}
 
 	private void showAllPersons() {
