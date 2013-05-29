@@ -319,7 +319,7 @@ public class PersonGUI extends Composite {
 		txt_surName = new Text(composite_7, SWT.BORDER);
 		GridData gd_txt_sname = new GridData(SWT.LEFT, SWT.CENTER, true, false,
 				1, 1);
-		gd_txt_fname.widthHint = 203;
+		gd_txt_sname.widthHint = 203;
 		txt_surName.setEditable(false);
 		txt_surName.setLayoutData(gd_txt_sname);
 
