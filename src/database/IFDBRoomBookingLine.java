@@ -13,5 +13,5 @@ public interface IFDBRoomBookingLine {
 	//update information about a RoomBookingLine;
 	public int updateRoomBookingLine(RoomBookingLine roomBookingLine);
 	//delete a RoomBookingLine;
-	public int deletePerson(int personId);
+	public int deleteRoomBookingLine(int roomBookingLineId);
 }
