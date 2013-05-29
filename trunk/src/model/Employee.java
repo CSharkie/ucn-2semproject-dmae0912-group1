@@ -18,7 +18,7 @@ public class Employee extends Person {
 	}
 	
 	public Employee() {
-		
+		super();
 	}
 	
 	public int getSalary() {
@@ -36,7 +36,4 @@ public class Employee extends Person {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-
 }

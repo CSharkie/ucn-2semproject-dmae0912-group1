@@ -15,8 +15,7 @@ public class Instructor extends Employee {
 	}
 	
 	public Instructor(){
-	
-		
+		super();
 	}
 
 	public String getSkills() {
@@ -26,9 +25,4 @@ public class Instructor extends Employee {
 	public void setSkills(String skills) {
 		this.skills = skills;
 	}
-	
-	
-	
-	
-
 }
