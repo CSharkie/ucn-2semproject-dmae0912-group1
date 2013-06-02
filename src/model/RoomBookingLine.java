@@ -8,23 +8,26 @@ public class RoomBookingLine extends BookingLine {
 	String depositStatus;
 	LinkedList<Guest> guests;
 	Room room;
+	RoomBooking roomBooking;
 	
-	public RoomBookingLine(int bookingLineId, Timestamp startDateTime,
+	public RoomBookingLine(int bookingLineId, RoomBooking roomBooking, Timestamp startDateTime,
 			Timestamp endDateTime, Double subtotal, Timestamp checkInDateTime, String depositStatus, Room room) {
 		super(bookingLineId, startDateTime, endDateTime, subtotal);
 		this.checkInDateTime = checkInDateTime;
 		this.depositStatus = depositStatus;
 		guests = new LinkedList<Guest>();
 		this.room = room;
+		this.roomBooking = roomBooking;
 	}
 	
-	public RoomBookingLine(Timestamp startDateTime,
+	public RoomBookingLine(RoomBooking roomBooking, Timestamp startDateTime,
 			Timestamp endDateTime, Double subtotal, Timestamp checkInDateTime, String depositStatus, Room room) {
 		super(startDateTime, endDateTime, subtotal);
 		this.checkInDateTime = checkInDateTime;
 		this.depositStatus = depositStatus;
 		guests = new LinkedList<Guest>();
 		this.room = room;
+		this.roomBooking = roomBooking;
 	}
 
 	public RoomBookingLine() {
@@ -58,5 +61,15 @@ public class RoomBookingLine extends BookingLine {
 	public void addGuest(Guest guest)
 	{
 		guests.add(guest);
+	}
+
+	public RoomBooking getRoomBooking() {
+		return roomBooking;
+	}
+
+	public void setRoomBooking(RoomBooking roomBooking) {
+		this.roomBooking = roomBooking;
 	}	
+	
+	
 }
