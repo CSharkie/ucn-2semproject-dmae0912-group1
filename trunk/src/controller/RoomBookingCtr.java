@@ -75,7 +75,6 @@ public class RoomBookingCtr {
 
 	public void addRoomBookingLine(int roomBookingId, int roomId,
 			Date startDate, Date endDate) {
-		// TODO subtotal
 		Room room = roomCtr.searchRoomById(roomId);
 		long days1 = startDate.getTime()/(60*60*24*1000);
 		long days2 = endDate.getTime()/(60*60*24*1000);

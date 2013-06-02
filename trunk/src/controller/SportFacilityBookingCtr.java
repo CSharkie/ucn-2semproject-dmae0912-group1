@@ -69,11 +69,10 @@ public class SportFacilityBookingCtr {
 
 	public void addSportFacilityBookingLine(int sportFacilityBookingId, int sportFacilityId,
 			Date startDate, Date endDate) {
-		// TODO subtotal
 		SportFacility sportFacility = sportFacilityCtr.searchSportFacilityById(sportFacilityId);
-		long days1 = startDate.getTime()/(60*60*24*1000);
-		long days2 = endDate.getTime()/(60*60*24*1000);
-		long amount = days2 - days1;
+		long hour1 = startDate.getTime()/(60*60*1000);
+		long hour2 = endDate.getTime()/(60*60*1000);
+		long amount = hour2 - hour1;
 		double subtotal = amount * sportFacility.getCost();
 		if (sportFacility != null) {
 			SportFacilityBookingLine sportFacilityBookingLine = new SportFacilityBookingLine(new SportFacilityBooking(sportFacilityBookingId), new Timestamp(startDate.getTime()),

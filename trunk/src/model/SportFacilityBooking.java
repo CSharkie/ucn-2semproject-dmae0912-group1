@@ -34,6 +34,7 @@ public class SportFacilityBooking {
 
 	public SportFacilityBooking(Guest ownerGuest) {
 		this.ownerGuest = ownerGuest;
+		this.totalPrice = 0.0;
 	}
 
 	public SportFacilityBooking(int sportFacilityBookingId) {

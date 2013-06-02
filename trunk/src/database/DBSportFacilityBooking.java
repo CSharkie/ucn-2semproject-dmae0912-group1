@@ -84,7 +84,7 @@ public class DBSportFacilityBooking implements IFDBSportFacilityBooking {
 				+ sportFacilityBooking.getTotalPrice() + "', "
 				+ "ownerGuestId ='"
 				+ sportFacilityBooking.getOwnerGuest().getPersonId()
-				+ " WHERE SportFacilityBookingId = '"
+				+ "' WHERE SportFacilityBookingId = '"
 				+ sportFacilityBooking.getSportFacilityBookingId() + "'";
 		System.out.println("Update query:" + query);
 		try { // update RoomBooking

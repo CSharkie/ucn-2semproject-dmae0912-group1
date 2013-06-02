@@ -136,6 +136,7 @@ public class SportFacilityBookingGUI extends Composite {
 				boolean create = false;
 				int sportFacilityBookingId = 0;
 				int ownerGuestId = 0;
+				double totalPrice = 0.0;
 				try {
 					sportFacilityBookingId = Integer.parseInt(txt_id.getText());
 				} catch (NumberFormatException ex) {
@@ -174,6 +175,8 @@ public class SportFacilityBookingGUI extends Composite {
 					try {
 						ownerGuestId = Integer.parseInt(txt_ownerGuest
 								.getText());
+						totalPrice = Double.parseDouble(txt_totalPrice
+								.getText());
 					} catch (Exception exc) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -184,9 +187,9 @@ public class SportFacilityBookingGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							// TODO totalprice
 							sportFacilityBookingCtr.updateSportFacilityBooking(
-									sportFacilityBookingId, 0.0, ownerGuestId);
+									sportFacilityBookingId, totalPrice,
+									ownerGuestId);
 						} catch (Exception ex1) {
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -222,7 +225,8 @@ public class SportFacilityBookingGUI extends Composite {
 				}
 				if (!error) {
 					try {
-						sportFacilityBookingCtr.removeSportFacilityBooking(sportFacilityBookingId);
+						sportFacilityBookingCtr
+								.removeSportFacilityBooking(sportFacilityBookingId);
 					} catch (Exception ex) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -421,10 +425,11 @@ public class SportFacilityBookingGUI extends Composite {
 				boolean error = false;
 				try {
 					sportFacilityBookingId = Integer.parseInt(txt_id.getText());
-					sportFacilityId = Integer.parseInt(txt_sportFacilityId.getText());
-					startDate = new SimpleDateFormat("dd.MM.yyyy")
+					sportFacilityId = Integer.parseInt(txt_sportFacilityId
+							.getText());
+					startDate = new SimpleDateFormat("dd.MM.yyyy H:m")
 							.parse(txt_StartDate.getText());
-					endDate = new SimpleDateFormat("dd.MM.yyyy")
+					endDate = new SimpleDateFormat("dd.MM.yyyy H:m")
 							.parse(txt_EndDate.getText());
 				} catch (Exception ex) {
 					error = true;
@@ -434,8 +439,9 @@ public class SportFacilityBookingGUI extends Composite {
 					box.open();
 				}
 				if (!error) {
-					sportFacilityBookingCtr.addSportFacilityBookingLine(sportFacilityBookingId, sportFacilityId,
-							startDate, endDate);
+					sportFacilityBookingCtr.addSportFacilityBookingLine(
+							sportFacilityBookingId, sportFacilityId, startDate,
+							endDate);
 					showSportFacilityBookingLines(sportFacilityBookingId);
 				}
 			}
@@ -452,8 +458,8 @@ public class SportFacilityBookingGUI extends Composite {
 				boolean error = false;
 				try {
 					sportFacilityBookingId = Integer.parseInt(txt_id.getText());
-					sportFacilityBookingLineId = Integer.parseInt(table_1.getItem(
-							table_1.getSelectionIndex()).getText(0));
+					sportFacilityBookingLineId = Integer.parseInt(table_1
+							.getItem(table_1.getSelectionIndex()).getText(0));
 				} catch (NumberFormatException ex) {
 					error = true;
 					MessageBox box = new MessageBox(getShell(), 0);
@@ -462,7 +468,8 @@ public class SportFacilityBookingGUI extends Composite {
 					box.open();
 				}
 				if (!error) {
-					sportFacilityBookingCtr.removeSportFacilityBookingLine(sportFacilityBookingLineId);
+					sportFacilityBookingCtr
+							.removeSportFacilityBookingLine(sportFacilityBookingLineId);
 					showSportFacilityBookingLines(sportFacilityBookingId);
 				}
 			}
@@ -486,7 +493,8 @@ public class SportFacilityBookingGUI extends Composite {
 				.getAllSportFacilityBooking();
 		for (SportFacilityBooking sportFacilityBooking : sportFacilityBookings) {
 			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(0, String.valueOf(sportFacilityBooking.getSportFacilityBookingId()));
+			item.setText(0, String.valueOf(sportFacilityBooking
+					.getSportFacilityBookingId()));
 			item.setText(1, sportFacilityBooking.getOwnerGuest().getFirstName());
 			item.setText(2, sportFacilityBooking.getOwnerGuest().getSurName());
 		}
@@ -499,7 +507,8 @@ public class SportFacilityBookingGUI extends Composite {
 				.searchSportFacilityBookingByCustomerName(customerName);
 		for (SportFacilityBooking sportFacilityBooking : sportFacilityBookings) {
 			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(0, String.valueOf(sportFacilityBooking.getSportFacilityBookingId()));
+			item.setText(0, String.valueOf(sportFacilityBooking
+					.getSportFacilityBookingId()));
 			item.setText(1, sportFacilityBooking.getOwnerGuest().getFirstName());
 			item.setText(2, sportFacilityBooking.getOwnerGuest().getSurName());
 		}
@@ -507,12 +516,17 @@ public class SportFacilityBookingGUI extends Composite {
 	}
 
 	private void showSportFacilityBooking(int id) {
-		SportFacilityBooking sportFacilityBooking = sportFacilityBookingCtr.searchSportFacilityBookingById(id);
-		txt_id.setText(String.valueOf(sportFacilityBooking.getSportFacilityBookingId()));
-		txt_ownerGuest.setText(String.valueOf(sportFacilityBooking.getOwnerGuest()
-				.getPersonId()));
+		SportFacilityBooking sportFacilityBooking = sportFacilityBookingCtr
+				.searchSportFacilityBookingById(id);
+		txt_id.setText(String.valueOf(sportFacilityBooking
+				.getSportFacilityBookingId()));
+		txt_totalPrice.setText(String.valueOf(sportFacilityBooking
+				.getTotalPrice()));
+		txt_ownerGuest.setText(String.valueOf(sportFacilityBooking
+				.getOwnerGuest().getPersonId()));
 
 		txt_id.setEditable(false);
+		txt_totalPrice.setEditable(false);
 		txt_ownerGuest.setEditable(false);
 
 		btnAdd.setEnabled(false);
@@ -521,7 +535,8 @@ public class SportFacilityBookingGUI extends Composite {
 		txt_StartDate.setEditable(false);
 		txt_EndDate.setEditable(false);
 
-		showSportFacilityBookingLines(sportFacilityBooking.getSportFacilityBookingId());
+		showSportFacilityBookingLines(sportFacilityBooking
+				.getSportFacilityBookingId());
 
 		btn_create.setEnabled(true);
 		btn_edit.setEnabled(true);
@@ -535,16 +550,45 @@ public class SportFacilityBookingGUI extends Composite {
 		txt_sportFacilityId.setText("");
 		txt_StartDate.setText("");
 		txt_EndDate.setText("");
+		double totalPrice = 0.0;
 		LinkedList<SportFacilityBookingLine> sportFacilityBookingLines = sportFacilityBookingCtr
 				.getAllSportFacilityBookingLines(id);
 		for (SportFacilityBookingLine sportFacilityBookingLine : sportFacilityBookingLines) {
+			totalPrice += sportFacilityBookingLine.getSubtotal();
 			TableItem item = new TableItem(table_1, SWT.NONE);
-			item.setText(0, String.valueOf(sportFacilityBookingLine.getBookingLineId()));
-			item.setText(1,
-					String.valueOf(sportFacilityBookingLine.getSportFacility().getSportFacilityId()));
-			item.setText(2, String.valueOf(sportFacilityBookingLine.getStartDateTime()));
-			item.setText(3, String.valueOf(sportFacilityBookingLine.getEndDateTime()));
-			item.setText(4, String.valueOf(sportFacilityBookingLine.getSubtotal()));
+			item.setText(0,
+					String.valueOf(sportFacilityBookingLine.getBookingLineId()));
+			item.setText(1, String.valueOf(sportFacilityBookingLine
+					.getSportFacility().getSportFacilityId()));
+			item.setText(2,
+					String.valueOf(sportFacilityBookingLine.getStartDateTime()));
+			item.setText(3,
+					String.valueOf(sportFacilityBookingLine.getEndDateTime()));
+			item.setText(4,
+					String.valueOf(sportFacilityBookingLine.getSubtotal()));
+		}
+		try {
+			if (totalPrice != Double.parseDouble(txt_totalPrice.getText())) {
+				int sportFacilityBookingId = 0;
+				int ownerGuestId = 0;
+				try {
+					sportFacilityBookingId = Integer.parseInt(txt_id.getText());
+					ownerGuestId = Integer.parseInt(txt_ownerGuest.getText());
+					sportFacilityBookingCtr.updateSportFacilityBooking(
+							sportFacilityBookingId, totalPrice, ownerGuestId);
+					showSportFacilityBooking(sportFacilityBookingId);
+				} catch (Exception ex1) {
+					MessageBox box = new MessageBox(getShell(), 0);
+					box.setText("Error");
+					box.setMessage("There was an error. Please try again");
+					box.open();
+				}
+			}
+		} catch (Exception e) {
+			MessageBox box = new MessageBox(getShell(), 0);
+			box.setText("Error");
+			box.setMessage("There was an error. Please try again");
+			box.open();
 		}
 	}
 

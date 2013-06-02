@@ -148,6 +148,7 @@ public class RoomBookingGUI extends Composite {
 				int ownerGuestId = 0;
 				int employeeId = 0;
 				int agencyId = 0;
+				double totalPrice = 0.0;
 				try {
 					roomBookingId = Integer.parseInt(txt_id.getText());
 				} catch (NumberFormatException ex) {
@@ -192,6 +193,7 @@ public class RoomBookingGUI extends Composite {
 						employeeId = Integer.parseInt(txt_employee.getText());
 						if (txt_agency.getText().length() > 0)
 							agencyId = Integer.parseInt(txt_agency.getText());
+						totalPrice = Double.parseDouble(txt_totalPrice.getText());
 					} catch (Exception exc) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -202,9 +204,8 @@ public class RoomBookingGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							// TODO totalprice
 							roomBookingCtr.updateRoomBooking(roomBookingId,
-									0.0, ownerGuestId, employeeId, agencyId);
+									totalPrice, ownerGuestId, employeeId, agencyId);
 						} catch (Exception ex1) {
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -672,11 +673,14 @@ public class RoomBookingGUI extends Composite {
 				.getPersonId()));
 		txt_employee.setText(String.valueOf(roomBooking.getEmployee()
 				.getPersonId()));
+		if(roomBooking.getAgency().getAgencyId() != 0) txt_agency.setText(String.valueOf(roomBooking.getAgency().getAgencyId()));
+		txt_totalPrice.setText(String.valueOf(roomBooking.getTotalPrice()));
 
 		txt_id.setEditable(false);
 		txt_ownerGuest.setEditable(false);
 		txt_employee.setEditable(false);
 		txt_agency.setEditable(false);
+		txt_totalPrice.setEditable(false);
 
 		btnAdd.setEnabled(false);
 		btnDel.setEnabled(false);
@@ -698,9 +702,11 @@ public class RoomBookingGUI extends Composite {
 		txt_RoomId.setText("");
 		txt_StartDate.setText("");
 		txt_EndDate.setText("");
+		double totalPrice = 0.0;
 		LinkedList<RoomBookingLine> roomBookingLines = roomBookingCtr
 				.getAllRoomBookingLines(id);
 		for (RoomBookingLine roomBookingLine : roomBookingLines) {
+			totalPrice += roomBookingLine.getSubtotal();
 			TableItem item = new TableItem(table_1, SWT.NONE);
 			item.setText(0, String.valueOf(roomBookingLine.getBookingLineId()));
 			item.setText(1,
@@ -711,6 +717,35 @@ public class RoomBookingGUI extends Composite {
 			item.setText(5,
 					String.valueOf(roomBookingLine.getCheckInDateTime()));
 			item.setText(6, String.valueOf(roomBookingLine.getDepositStatus()));
+		}
+		try {
+			if (totalPrice != Double.parseDouble(txt_totalPrice.getText())) {
+				int roomBookingId = 0;
+				int ownerGuestId = 0;
+				int employeeId = 0;
+				int agencyId = 0;
+				try {
+					roomBookingId = Integer.parseInt(txt_id.getText());
+					ownerGuestId = Integer.parseInt(txt_ownerGuest
+							.getText());
+					employeeId = Integer.parseInt(txt_employee.getText());
+					if (txt_agency.getText().length() > 0)
+						agencyId = Integer.parseInt(txt_agency.getText());
+					roomBookingCtr.updateRoomBooking(roomBookingId,
+							totalPrice, ownerGuestId, employeeId, agencyId);
+					showRoomBooking(roomBookingId);
+				} catch (Exception ex1) {
+					MessageBox box = new MessageBox(getShell(), 0);
+					box.setText("Error");
+					box.setMessage("There was an error. Please try again");
+					box.open();
+				}
+			}
+		} catch (Exception e) {
+			MessageBox box = new MessageBox(getShell(), 0);
+			box.setText("Error");
+			box.setMessage("There was an error. Please try again");
+			box.open();
 		}
 	}
 
@@ -734,6 +769,7 @@ public class RoomBookingGUI extends Composite {
 		txt_ownerGuest.setText("");
 		txt_employee.setText("");
 		txt_totalPrice.setText("");
+		txt_agency.setText("");
 		search_id.setText("");
 
 		table_1.clearAll();

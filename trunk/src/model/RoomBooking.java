@@ -61,12 +61,14 @@ public class RoomBooking {
 	public RoomBooking(Guest ownerGuest, Employee employee) {
 		this.ownerGuest = ownerGuest;
 		this.employee = employee;
+		this.totalPrice = 0.0;
 	}
 	
 	public RoomBooking(Guest ownerGuest, Employee employee, TravelAgency travelAgency) {
 		this.ownerGuest = ownerGuest;
 		this.employee = employee;
 		this.agency = travelAgency;
+		this.totalPrice = 0.0;
 	}
 
 	public RoomBooking(int roomBookingId) {
