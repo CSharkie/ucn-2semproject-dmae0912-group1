@@ -117,6 +117,12 @@ public class MainProgram {
 
 		TravelAgencyGUI travelAgencyGUI = new TravelAgencyGUI(tabFolder, SWT.NONE);
 		tbtmTravelAgencies.setControl(travelAgencyGUI);
+		
+		TabItem tbtmRoomBookings = new TabItem(tabFolder, SWT.NONE);
+		tbtmRoomBookings.setText("Room Bookings");
+
+		RoomBookingGUI roomBookingGUI = new RoomBookingGUI(tabFolder, SWT.NONE);
+		tbtmRoomBookings.setControl(roomBookingGUI);
 
 		/* TabItem tbtmProducts = new TabItem(tabFolder, SWT.NONE);
 		tbtmProducts.setText("Products");

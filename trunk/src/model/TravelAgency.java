@@ -12,6 +12,10 @@ public class TravelAgency {
 		
 	}
 	
+	public TravelAgency(int agencyId){
+		this.agencyId = agencyId;
+	}
+	
 	public TravelAgency(int agencyId, String name, double discount,
 			String address, String phoneNo, String email) {
 		this.agencyId = agencyId;

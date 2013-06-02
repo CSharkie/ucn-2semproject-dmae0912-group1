@@ -4,8 +4,8 @@ import model.LinkedList;
 import model.RoomBookingLine;
 
 public interface IFDBRoomBookingLine {
-	//getAllRoomBookingLines
-	public LinkedList<RoomBookingLine> getAllRoomBookingLines(boolean retrieveAssociation);
+	//getAllRoomBookingLines by RoomBooking Id
+	public LinkedList<RoomBookingLine> getAllRoomBookingLines(int roomBookingId, boolean retrieveAssociation);
     //get one RoomBookingLine by ID
 	public RoomBookingLine searchRoomBookingLineById(int roomBookingLineId, boolean retrieveAssociation);
 	//insert a new RoomBookingLine
