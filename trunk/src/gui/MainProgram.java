@@ -76,18 +76,6 @@ public class MainProgram {
 
 		TabFolder tabFolder = new TabFolder(composite, SWT.NONE);
 
-		/* TabItem tbtmNewItem = new TabItem(tabFolder, SWT.NONE);
-		tbtmNewItem.setText("Orders");
-
-		SalesOrderGUI orderGUI = new SalesOrderGUI(tabFolder, SWT.NONE);
-		tbtmNewItem.setControl(orderGUI);
-
-		TabItem tbtmInvoices = new TabItem(tabFolder, SWT.NONE);
-		tbtmInvoices.setText("Invoices");
-
-		InvoiceGUI invoiceGUI = new InvoiceGUI(tabFolder, SWT.NONE);
-		tbtmInvoices.setControl(invoiceGUI); */
-
 		TabItem tbtmGuests = new TabItem(tabFolder, SWT.NONE);
 		tbtmGuests.setText("Guests");
 
@@ -118,23 +106,23 @@ public class MainProgram {
 		TravelAgencyGUI travelAgencyGUI = new TravelAgencyGUI(tabFolder, SWT.NONE);
 		tbtmTravelAgencies.setControl(travelAgencyGUI);
 		
+		TabItem tbtmSportFacilities = new TabItem(tabFolder, SWT.NONE);
+		tbtmSportFacilities.setText("Sport Facilities");
+
+		SportFacilityGUI sportFacilityGUI = new SportFacilityGUI(tabFolder, SWT.NONE);
+		tbtmSportFacilities.setControl(sportFacilityGUI);
+		
 		TabItem tbtmRoomBookings = new TabItem(tabFolder, SWT.NONE);
 		tbtmRoomBookings.setText("Room Bookings");
 
 		RoomBookingGUI roomBookingGUI = new RoomBookingGUI(tabFolder, SWT.NONE);
 		tbtmRoomBookings.setControl(roomBookingGUI);
+		
+		TabItem tbtmSportFacilityBookings = new TabItem(tabFolder, SWT.NONE);
+		tbtmSportFacilityBookings.setText("Sport Facility Bookings");
 
-		/* TabItem tbtmProducts = new TabItem(tabFolder, SWT.NONE);
-		tbtmProducts.setText("Products");
-
-		ProductGUI productGUI = new ProductGUI(tabFolder, SWT.NONE);
-		tbtmProducts.setControl(productGUI);
-
-		TabItem tbtmNewItem_1 = new TabItem(tabFolder, SWT.NONE);
-		tbtmNewItem_1.setText("Suppliers");
-
-		SupplierGUI supplierGUI = new SupplierGUI(tabFolder, SWT.NONE);
-		tbtmNewItem_1.setControl(supplierGUI); */
+		SportFacilityBookingGUI sportFacilityBookingGUI = new SportFacilityBookingGUI(tabFolder, SWT.NONE);
+		tbtmSportFacilityBookings.setControl(sportFacilityBookingGUI);
 
 		Menu menu = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(menu);
@@ -175,7 +163,6 @@ public class MainProgram {
 			}
 		});
 		mntmHe.setText("About");
-
 	}
 
 }
