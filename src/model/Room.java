@@ -4,16 +4,23 @@ public class Room {
 
 	int roomId;
 	String type;
-	int price;
+	double price;
 	int capacity;
-	Boolean status;
+	String status;
 	
 	public Room(){
 		
 	}
 	
-	public Room(int roomId, String type, int price, int capacity, Boolean status) {
+	public Room(int roomId, String type, double price, int capacity, String status) {
 		this.roomId = roomId;
+		this.type = type;
+		this.price = price;
+		this.capacity = capacity;
+		this.status = status;
+	}
+	
+	public Room(String type, double price, int capacity, String status) {
 		this.type = type;
 		this.price = price;
 		this.capacity = capacity;
@@ -40,11 +47,11 @@ public class Room {
 		this.type = type;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -56,11 +63,11 @@ public class Room {
 		this.capacity = capacity;
 	}
 
-	public Boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	

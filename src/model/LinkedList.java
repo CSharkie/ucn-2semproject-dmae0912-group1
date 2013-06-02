@@ -21,7 +21,9 @@ public class LinkedList<E> implements Iterable<E>
     {
         if(head==null)
         {
-            head= new DoubleNode<E>(item,tail,head);
+            head= new DoubleNode<E>(item,null,null);
+            head.setNext(head);
+            head.setPrev(head);
             tail= head;
         }
         else

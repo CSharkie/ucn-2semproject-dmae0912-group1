@@ -4,14 +4,23 @@ import model.Instructor;
 import model.LinkedList;
 
 public interface IFDBInstructor {
-	//getAllInstructors
+	// getAllInstructors
 	public LinkedList<Instructor> getAllInstructors(boolean retrieveAssociation);
-    //get one Instructor by ID
-	public Instructor searchInstructorById(int personId, boolean retrieveAssociation);
-	//insert a new Instructor
+
+	// get one Instructor by ID
+	public Instructor searchInstructorById(int personId,
+			boolean retrieveAssociation);
+
+	// get some Instructor by Name
+	public LinkedList<Instructor> searchInstructorByName(String instructorName,
+			boolean retrieveAssociation);
+
+	// insert a new Instructor
 	public int insertInstructor(Instructor instructor) throws Exception;
-	//update information about a Instructor;
+
+	// update information about a Instructor;
 	public int updateInstructor(Instructor instructor);
-	//delete a Instructor;
+
+	// delete a Instructor;
 	public int deleteInstructor(int personId);
 }

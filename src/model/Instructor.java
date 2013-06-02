@@ -4,13 +4,15 @@ public class Instructor extends Employee {
 	
 	String skills;
 
-	public Instructor(String skills) {
+	public Instructor(int personId, String firstName, String surName,
+			String address, String phoneNo, String email, double salary, String type, String skills) {
+		super(personId, firstName, surName, address, phoneNo, email, salary, type);
 		this.skills = skills;
 	}
 	
-	public Instructor(int personId, String firstName, String surName,
-			String address, String phoneNo, String email, int salary, String type, String skills) {
-		super(personId, firstName, surName, address, phoneNo, email, salary, type);
+	public Instructor(String firstName, String surName,
+			String address, String phoneNo, String email, double salary, String type, String skills) {
+		super(firstName, surName, address, phoneNo, email, salary, type);
 		this.skills = skills;
 	}
 	

@@ -2,17 +2,19 @@ package model;
 
 public class Employee extends Person {
 	
-	int salary;
+	double salary;
 	String type;
 	
-	public Employee(int salary, String type) {
+	public Employee(int personId, String firstName, String surName,
+			String address, String phoneNo, String email, double salary, String type) {
+		super(personId, firstName, surName, address, phoneNo, email);
 		this.salary = salary;
 		this.type = type;
 	}
 	
-	public Employee(int personId, String firstName, String surName,
-			String address, String phoneNo, String email, int salary, String type) {
-		super(personId, firstName, surName, address, phoneNo, email);
+	public Employee(String firstName, String surName,
+			String address, String phoneNo, String email, double salary, String type) {
+		super(firstName, surName, address, phoneNo, email);
 		this.salary = salary;
 		this.type = type;
 	}
@@ -21,11 +23,15 @@ public class Employee extends Person {
 		super();
 	}
 	
-	public int getSalary() {
+	public Employee(int personId) {
+		super(personId);
+	}
+	
+	public double getSalary() {
 		return salary;
 	}
 	
-	public void setSalary(int salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 	

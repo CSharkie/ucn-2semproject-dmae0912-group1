@@ -29,13 +29,13 @@ public class RoomCtr {
 		return list;
 	}
 	
-	public int updateRoom(int roomId, String type, int price, int capacity, Boolean status){
+	public int updateRoom(int roomId, String type, double price, int capacity, String status){
 		IFDBRoom dbRoom=new DBRoom();
 		Room Room=new Room(roomId, type, price, capacity, status);
 		return dbRoom.updateRoom(Room);
 	}
 	
-	public int insertRoom(int roomId, String type, int price, int capacity, Boolean status){
+	public int insertRoom(int roomId, String type, double price, int capacity, String status){
 		Room RoomObj=new Room(roomId, type, price, capacity, status);	
 		try{
 			DBConnection.startTransaction();

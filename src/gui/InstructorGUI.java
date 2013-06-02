@@ -1,7 +1,7 @@
 package gui;
 
 import controller.PersonCtr;
-import model.Person;
+import model.Instructor;
 import model.LinkedList;
 
 import org.eclipse.swt.layout.RowLayout;
@@ -26,7 +26,7 @@ import swing2swt.layout.FlowLayout;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
-public class PersonGUI extends Composite {
+public class InstructorGUI extends Composite {
 
 	PersonCtr persCtr;
 
@@ -46,8 +46,10 @@ public class PersonGUI extends Composite {
 	private Button btn_save;
 	private Button btn_edit;
 	private Button btn_create;
+	private Text txt_salary;
+	private Text txt_skills;
 
-	public PersonGUI(Composite parent, int style) {
+	public InstructorGUI(Composite parent, int style) {
 		super(parent, style);
 		this.setLayout(new BorderLayout(0, 0));
 
@@ -74,7 +76,7 @@ public class PersonGUI extends Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String name = search_name.getText();
-				showSearchedPersons(name);
+				showSearchedInstructors(name);
 			}
 		});
 		btn_search.setText("Search");
@@ -92,12 +94,16 @@ public class PersonGUI extends Composite {
 		table.setLinesVisible(true);
 
 		TableColumn tblclmnId = new TableColumn(table, SWT.NONE);
-		tblclmnId.setWidth(100);
+		tblclmnId.setWidth(40);
 		tblclmnId.setText("ID");
 
-		TableColumn tblclmnName = new TableColumn(table, SWT.NONE);
-		tblclmnName.setWidth(100);
-		tblclmnName.setText("Name");
+		TableColumn tblclmnFirstName = new TableColumn(table, SWT.NONE);
+		tblclmnFirstName.setWidth(100);
+		tblclmnFirstName.setText("FirstName");
+		
+		TableColumn tblclmnSurName = new TableColumn(table, SWT.NONE);
+		tblclmnSurName.setWidth(100);
+		tblclmnSurName.setText("SurName");
 		scrolledComposite.setContent(table);
 		scrolledComposite.setMinSize(table
 				.computeSize(SWT.DEFAULT, SWT.DEFAULT));
@@ -117,14 +123,16 @@ public class PersonGUI extends Composite {
 		btn_save.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				boolean create = false;
-				int personId = 0;
+				int instructorId = 0;
 				String firstName = null;
 				String surName = null;
 				String address = null;
 				String email = null;
 				String phoneNo = null;
+				double salary = 0.0;
+				String skills = null;
 				try {
-					personId = Integer.parseInt(txt_id.getText());
+					instructorId = Integer.parseInt(txt_id.getText());
 				} catch (NumberFormatException ex) {
 					create = true;
 					boolean error = false;
@@ -134,6 +142,8 @@ public class PersonGUI extends Composite {
 						address = txt_address.getText();
 						email = txt_email.getText();
 						phoneNo = txt_phoneNo.getText();
+						salary = Double.parseDouble(txt_salary.getText());
+						skills = txt_skills.getText();
 					} catch (Exception exc) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -144,7 +154,9 @@ public class PersonGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							personId = persCtr.insertPerson(firstName, surName, address, phoneNo, email);
+							instructorId = persCtr.insertInstructor(firstName,
+									surName, address, phoneNo, email, salary,
+									"Instructor", skills);
 						} catch (Exception ex1) {
 							ok = false;
 							MessageBox box = new MessageBox(getShell(), 0);
@@ -153,8 +165,8 @@ public class PersonGUI extends Composite {
 							box.open();
 						}
 						if (ok) {
-							showAllPersons();
-							showPerson(personId);
+							showAllInstructors();
+							showInstructor(instructorId);
 						}
 					}
 				}
@@ -166,6 +178,8 @@ public class PersonGUI extends Composite {
 						address = txt_address.getText();
 						email = txt_email.getText();
 						phoneNo = txt_phoneNo.getText();
+						salary = Double.parseDouble(txt_salary.getText());
+						skills = txt_skills.getText();
 					} catch (Exception exc) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -176,7 +190,9 @@ public class PersonGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							persCtr.updatePerson(personId, firstName, surName, address, phoneNo, email);
+							persCtr.updateInstructor(instructorId, firstName,
+									surName, address, phoneNo, email, salary,
+									"Instructor", skills);
 						} catch (Exception ex1) {
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -185,8 +201,8 @@ public class PersonGUI extends Composite {
 							ok = false;
 						}
 						if (ok) {
-							showAllPersons();
-							showPerson(personId);
+							showAllInstructors();
+							showInstructor(instructorId);
 						}
 					}
 
@@ -199,10 +215,10 @@ public class PersonGUI extends Composite {
 		btn_delete.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int personId = 0;
+				int instructorId = 0;
 				boolean error = false;
 				try {
-					personId = Integer.parseInt(txt_id.getText());
+					instructorId = Integer.parseInt(txt_id.getText());
 				} catch (NumberFormatException ex) {
 					error = true;
 					MessageBox box = new MessageBox(getShell(), 0);
@@ -212,14 +228,14 @@ public class PersonGUI extends Composite {
 				}
 				if (!error) {
 					try {
-						persCtr.removePerson(personId);
+						persCtr.removeInstructor(instructorId);
 					} catch (Exception ex) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
 						box.setMessage("There was an error. Please try again");
 						box.open();
 					}
-					showAllPersons();
+					showAllInstructors();
 					resetFields();
 					btn_delete.setEnabled(false);
 					btn_edit.setEnabled(false);
@@ -252,6 +268,8 @@ public class PersonGUI extends Composite {
 				txt_address.setEditable(true);
 				txt_email.setEditable(true);
 				txt_phoneNo.setEditable(true);
+				txt_salary.setEditable(true);
+				txt_skills.setEditable(true);
 				search_name.setEditable(true);
 			}
 		});
@@ -274,6 +292,8 @@ public class PersonGUI extends Composite {
 				txt_address.setEditable(true);
 				txt_email.setEditable(true);
 				txt_phoneNo.setEditable(true);
+				txt_salary.setEditable(true);
+				txt_skills.setEditable(true);
 				search_name.setEditable(true);
 			}
 		});
@@ -310,12 +330,12 @@ public class PersonGUI extends Composite {
 		gd_txt_fname.widthHint = 203;
 		txt_firstName.setEditable(false);
 		txt_firstName.setLayoutData(gd_txt_fname);
-		
+
 		Label lblSurName = new Label(composite_7, SWT.NONE);
 		lblSurName.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false,
 				false, 1, 1));
 		lblSurName.setText("Last Name:");
-		
+
 		txt_surName = new Text(composite_7, SWT.BORDER);
 		GridData gd_txt_sname = new GridData(SWT.LEFT, SWT.CENTER, true, false,
 				1, 1);
@@ -358,52 +378,70 @@ public class PersonGUI extends Composite {
 		gd_txt_phoneNo.widthHint = 203;
 		txt_phoneNo.setEditable(false);
 		txt_phoneNo.setLayoutData(gd_txt_phoneNo);
+		
+		Label lblSalary = new Label(composite_7, SWT.NONE);
+		lblSalary.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		lblSalary.setText("Salary:");
+		
+		txt_salary = new Text(composite_7, SWT.BORDER);
+		txt_salary.setEditable(false);
+		txt_salary.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		Label lblSkills = new Label(composite_7, SWT.NONE);
+		lblSkills.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		lblSkills.setText("Skills:");
+		
+		txt_skills = new Text(composite_7, SWT.BORDER);
+		txt_skills.setEditable(false);
+		txt_skills.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				int id = Integer.parseInt(table.getItem(
 						table.getSelectionIndex()).getText(0));
-				showPerson(id);
+				showInstructor(id);
 			}
 		});
-
-		//showAllPersons();
+		showAllInstructors();
 	}
 
-	private void showAllPersons() {
+	private void showAllInstructors() {
 		table.clearAll();
 		table.setItemCount(0);
-		LinkedList<Person> persons = persCtr.getAllPersons();
-		for (Person person : persons) {
+		LinkedList<Instructor> instructors = persCtr.getAllInstructors();
+		for (Instructor instructor : instructors) {
 			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(0, String.valueOf(person.getPersonId()));
-			item.setText(1, person.getFirstName());
-			item.setText(2, person.getSurName());
+			item.setText(0, String.valueOf(instructor.getPersonId()));
+			item.setText(1, instructor.getFirstName());
+			item.setText(2, instructor.getSurName());
 		}
 
 	}
 
-	private void showSearchedPersons(String name) {
+	private void showSearchedInstructors(String name) {
 		table.clearAll();
 		table.setItemCount(0);
-		LinkedList<Person> persons = persCtr.searchPersonsByName(name);
-		for (Person person : persons) {
+		LinkedList<Instructor> instructors = persCtr
+				.searchInstructorByName(name);
+		for (Instructor instructor : instructors) {
 			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(0, String.valueOf(person.getPersonId()));
-			item.setText(1, person.getFirstName());
-			item.setText(2, person.getSurName());
+			item.setText(0, String.valueOf(instructor.getPersonId()));
+			item.setText(1, instructor.getFirstName());
+			item.setText(2, instructor.getSurName());
 		}
 
 	}
 
-	private void showPerson(int id) {
-		Person person = persCtr.searchPersonById(id);
-		txt_id.setText(String.valueOf(person.getPersonId()));
-		txt_firstName.setText(person.getFirstName());
-		txt_surName.setText(person.getSurName());
-		txt_address.setText(person.getAddress());
-		txt_email.setText(person.getEmail());
-		txt_phoneNo.setText(person.getPhoneNo());
+	private void showInstructor(int id) {
+		Instructor instructor = persCtr.searchInstructorById(id);
+		txt_id.setText(String.valueOf(instructor.getPersonId()));
+		txt_firstName.setText(instructor.getFirstName());
+		txt_surName.setText(instructor.getSurName());
+		txt_address.setText(instructor.getAddress());
+		txt_email.setText(instructor.getEmail());
+		txt_phoneNo.setText(instructor.getPhoneNo());
+		txt_salary.setText(String.valueOf(instructor.getSalary()));
+		txt_skills.setText(instructor.getSkills());
 
 		txt_id.setEditable(false);
 		txt_firstName.setEditable(false);
@@ -411,6 +449,8 @@ public class PersonGUI extends Composite {
 		txt_address.setEditable(false);
 		txt_email.setEditable(false);
 		txt_phoneNo.setEditable(false);
+		txt_salary.setEditable(false);
+		txt_skills.setEditable(false);
 
 		btn_create.setEnabled(true);
 		btn_edit.setEnabled(true);
@@ -425,6 +465,8 @@ public class PersonGUI extends Composite {
 		txt_address.setText("");
 		txt_email.setText("");
 		txt_phoneNo.setText("");
+		txt_salary.setText("");
+		txt_skills.setText("");
 		search_name.setText("");
 	}
 }
