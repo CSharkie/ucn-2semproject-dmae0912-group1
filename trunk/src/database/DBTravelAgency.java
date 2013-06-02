@@ -42,7 +42,7 @@ public class DBTravelAgency {
 			System.out.println("next ID = " + nextId);
 			TravelAgency.setAgencyId(nextId);
 			int rc = -1;
-			String query = "INSERT INTO TravelAgency(agencyId, type, price, capacity, status)  VALUES('"
+			String query = "INSERT INTO TravelAgency(agencyId, Name, Discount, Address, PhoneNo, EMAIL)  VALUES('"
 					+ TravelAgency.getAgencyId()
 					+ "','"
 					+ TravelAgency.getName()
@@ -77,8 +77,8 @@ public class DBTravelAgency {
 			String query = "UPDATE TravelAgency SET " + "name ='" + TravelAgencyObj.getName()
 					+ "', " + "discount ='" + TravelAgencyObj.getDiscount() + "', "
 					+ "address ='" + TravelAgencyObj.getAddress() + "', " + "phoneNo ='"
-					+ TravelAgencyObj.getPhoneNo() + "', " + TravelAgencyObj.getEmail()
-					+ "' " + " WHERE agencyId = '" + TravelAgencyObj.getAgencyId()
+					+ TravelAgencyObj.getPhoneNo() + "', " + "EMAIL ='" + TravelAgencyObj.getEmail()
+					+ "'" + " WHERE agencyId = '" + TravelAgencyObj.getAgencyId()
 					+ "'";
 			System.out.println("Update query:" + query);
 			try { // update TravelAgency
@@ -168,7 +168,7 @@ public class DBTravelAgency {
 
 		// method to build the query
 		private String buildQuery(String wClause) {
-			String query = "SELECT agencyId, name, disocunt, address, phoneNo, email  FROM TravelAgency";
+			String query = "SELECT agencyId, Name, Discount, Address, phoneNo, EMAIL  FROM TravelAgency";
 
 			if (wClause.length() > 0)
 				query = query + " WHERE " + wClause;
@@ -182,7 +182,7 @@ public class DBTravelAgency {
 			try { // the columns from the table TravelAgency are used
 				TravelAgencyObj.setAgencyId(results.getInt("AgencyId"));
 				TravelAgencyObj.setName(results.getString("Name"));
-				TravelAgencyObj.setDiscount(results.getInt("Discount"));
+				TravelAgencyObj.setDiscount(results.getDouble("Discount"));
 				TravelAgencyObj.setAddress(results.getString("Address"));
 				TravelAgencyObj.setPhoneNo(results.getString("PhoneNo"));
 				TravelAgencyObj.setEmail(results.getString("Email"));

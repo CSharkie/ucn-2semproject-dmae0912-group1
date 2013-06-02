@@ -3,7 +3,7 @@ package model;
 public class TravelAgency {
 	int agencyId;
 	String name;
-	int discount;
+	double discount;
 	String address;
 	String phoneNo;
 	String email;
@@ -12,10 +12,18 @@ public class TravelAgency {
 		
 	}
 	
-	public TravelAgency(int agencyId, String name, int discount,
+	public TravelAgency(int agencyId, String name, double discount,
 			String address, String phoneNo, String email) {
-		super();
 		this.agencyId = agencyId;
+		this.name = name;
+		this.discount = discount;
+		this.address = address;
+		this.phoneNo = phoneNo;
+		this.email = email;
+	}
+	
+	public TravelAgency(String name, double discount,
+			String address, String phoneNo, String email) {
 		this.name = name;
 		this.discount = discount;
 		this.address = address;
@@ -39,11 +47,11 @@ public class TravelAgency {
 		this.name = name;
 	}
 
-	public int getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(int discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 

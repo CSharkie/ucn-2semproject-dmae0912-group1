@@ -2,33 +2,39 @@ package model;
 
 public class Guest extends Person {
 	
-	String passportNo;
+	int passportNo;
 	String password;
 	double discount;
 	
-	public Guest(String passportNo, String password, double discount) {
-		this.passportNo = passportNo;
-		this.password = password;
-		this.discount = discount;
-	}
-	
 	public Guest(int personId, String firstName, String surName,
-			String address, String phoneNo, String email, String passportNo, String password, double discount) {
+			String address, String phoneNo, String email, int passportNo, String password, double discount) {
 		super(personId, firstName, surName, address, phoneNo, email);
 		this.passportNo = passportNo;
 		this.password = password;
 		this.discount = discount;
 	}
 	
+	public Guest(String firstName, String surName,
+			String address, String phoneNo, String email, int passportNo, String password, double discount) {
+		super(firstName, surName, address, phoneNo, email);
+		this.passportNo = passportNo;
+		this.password = password;
+		this.discount = discount;
+	}
+	
+	public Guest(int personId) {
+		super(personId);
+	}
+	
 	public Guest() {
 		super();
 	}
 
-	public String getPassportNo() {
+	public int getPassportNo() {
 		return passportNo;
 	}
 
-	public void setPassportNo(String passportNo) {
+	public void setPassportNo(int passportNo) {
 		this.passportNo = passportNo;
 	}
 

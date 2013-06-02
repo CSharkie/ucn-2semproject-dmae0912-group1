@@ -181,9 +181,9 @@ public class DBRoom implements IFDBRoom {
 		try { // the columns from the table Room are used
 			roomObj.setRoomId(results.getInt("RoomId"));
 			roomObj.setType(results.getString("Type"));
-			roomObj.setPrice(results.getInt("Price"));
+			roomObj.setPrice(results.getDouble("Price"));
 			roomObj.setCapacity(results.getInt("Capacity"));
-			roomObj.setStatus(results.getBoolean("Status"));
+			roomObj.setStatus(results.getString("Status"));
 		} catch (Exception e) {
 			System.out.println("error in building the Room object");
 		}

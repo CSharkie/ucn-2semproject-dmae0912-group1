@@ -10,7 +10,6 @@ public abstract class Person {
 	
 	public Person(int personId, String firstName, String surName,
 			String address, String phoneNo, String email) {
-		super();
 		this.personId = personId;
 		this.firstName = firstName;
 		this.surName = surName;
@@ -25,6 +24,10 @@ public abstract class Person {
 		this.address = address;
 		this.phoneNo = phoneNo;
 		this.email = email;
+	}
+	
+	public Person(int personId) {
+		this.personId = personId;
 	}
 	
 	public Person() {

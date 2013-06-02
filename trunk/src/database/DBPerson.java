@@ -56,8 +56,6 @@ public abstract class DBPerson implements IFDBPerson {
 				int rc = -1;
 
 				String query = "UPDATE Person SET " 
-						+ "personId = '" + person.getPersonId()
-						+ "', " 
 						+ "firstname = '" + person.getFirstName()
 						+ "', "
 						+ "surname = '" + person.getSurName()

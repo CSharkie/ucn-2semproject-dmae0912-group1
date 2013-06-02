@@ -88,11 +88,29 @@ public class MainProgram {
 		InvoiceGUI invoiceGUI = new InvoiceGUI(tabFolder, SWT.NONE);
 		tbtmInvoices.setControl(invoiceGUI); */
 
-		TabItem tbtmPersons = new TabItem(tabFolder, SWT.NONE);
-		tbtmPersons.setText("Persons");
+		TabItem tbtmGuests = new TabItem(tabFolder, SWT.NONE);
+		tbtmGuests.setText("Guests");
 
-		PersonGUI personGUI = new PersonGUI(tabFolder, SWT.NONE);
-		tbtmPersons.setControl(personGUI);
+		GuestGUI guestGUI = new GuestGUI(tabFolder, SWT.NONE);
+		tbtmGuests.setControl(guestGUI);
+		
+		TabItem tbtmEmployees = new TabItem(tabFolder, SWT.NONE);
+		tbtmEmployees.setText("Employees");
+
+		EmployeeGUI employeeGUI = new EmployeeGUI(tabFolder, SWT.NONE);
+		tbtmEmployees.setControl(employeeGUI);
+		
+		TabItem tbtmInstructors = new TabItem(tabFolder, SWT.NONE);
+		tbtmInstructors.setText("Instructors");
+
+		InstructorGUI instructorGUI = new InstructorGUI(tabFolder, SWT.NONE);
+		tbtmInstructors.setControl(instructorGUI);
+		
+		TabItem tbtmRooms = new TabItem(tabFolder, SWT.NONE);
+		tbtmRooms.setText("Rooms");
+
+		RoomGUI roomGUI = new RoomGUI(tabFolder, SWT.NONE);
+		tbtmRooms.setControl(roomGUI);
 
 		/* TabItem tbtmProducts = new TabItem(tabFolder, SWT.NONE);
 		tbtmProducts.setText("Products");

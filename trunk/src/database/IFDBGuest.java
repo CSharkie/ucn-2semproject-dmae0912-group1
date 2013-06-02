@@ -8,6 +8,8 @@ public interface IFDBGuest {
 		public LinkedList<Guest> getAllGuests(boolean retrieveAssociation);
 	    //get one Guest by ID
 		public Guest searchGuestById(int personId, boolean retrieveAssociation);
+		//get one Guest by Name
+		public LinkedList<Guest> searchGuestByName(String guestName, boolean retrieveAssociation);
 		//insert a new Guest
 		public int insertGuest(Guest guest) throws Exception;
 		//update information about a Guest;
