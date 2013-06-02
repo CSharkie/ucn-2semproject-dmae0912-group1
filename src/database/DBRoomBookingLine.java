@@ -1,6 +1,5 @@
 package database;
 
-import model.Guest;
 import model.Room;
 import model.RoomBooking;
 import model.RoomBookingLine;
@@ -51,37 +50,6 @@ public class DBRoomBookingLine extends DBBookingLine implements
 				+ roomBookingLine.getDepositStatus()
 				+ "',"
 				+ roomBookingLine.getCheckInDateTime() + ");";
-
-		System.out.println("insert : " + query);
-		try { // insert new RoomBookingLine
-			Statement stmt = con.createStatement();
-			stmt.setQueryTimeout(5);
-			rc = stmt.executeUpdate(query);
-			stmt.close();
-		}// end try
-		catch (SQLException ex) {
-			System.out.println("RoomBookingLine is not inserted");
-			throw new Exception("RoomBookingLine is not inserted");
-		}
-		return (rc);
-	}
-
-	// insert a new insertRoomBookingLine_Guest
-	public int insertRoomBookingLine_Guest(RoomBookingLine roomBookingLine,
-			Guest guest) throws Exception { // call to get
-		// the next Id
-		// number
-		int nextId = getMax
-				.getMaxId("Select max(RoomBookingLine_GuestId) from RoomBookingLine_Guest");
-		nextId = nextId + 1;
-		System.out.println("next ID = " + nextId);
-		int rc = -1;
-		String query = "INSERT INTO RoomBookingLine_Guest(RoomBookingLine_GuestId, RoomBookingLineId, GuestId) VALUES ('"
-				+ nextId
-				+ "','"
-				+ roomBookingLine.getBookingLineId()
-				+ "',"
-				+ guest.getPersonId() + ");";
 
 		System.out.println("insert : " + query);
 		try { // insert new RoomBookingLine
