@@ -111,6 +111,12 @@ public class MainProgram {
 
 		RoomGUI roomGUI = new RoomGUI(tabFolder, SWT.NONE);
 		tbtmRooms.setControl(roomGUI);
+		
+		TabItem tbtmTravelAgencies = new TabItem(tabFolder, SWT.NONE);
+		tbtmTravelAgencies.setText("Travel Agencies");
+
+		TravelAgencyGUI travelAgencyGUI = new TravelAgencyGUI(tabFolder, SWT.NONE);
+		tbtmTravelAgencies.setControl(travelAgencyGUI);
 
 		/* TabItem tbtmProducts = new TabItem(tabFolder, SWT.NONE);
 		tbtmProducts.setText("Products");

@@ -4,7 +4,7 @@ import model.TravelAgency;
 import java.sql.*;
 import model.LinkedList;
 
-public class DBTravelAgency {
+public class DBTravelAgency implements IFDBTravelAgency {
 
 	private Connection con;
 
@@ -15,7 +15,7 @@ public class DBTravelAgency {
 
 		// Implements the methods from the interface
 		// get all TravelAgencys
-		public LinkedList<TravelAgency> getAllTravelAgencys(boolean retrieveAssociation) {
+		public LinkedList<TravelAgency> getAllTravelAgencies(boolean retrieveAssociation) {
 			return miscWhere("", retrieveAssociation);
 		}
 		
@@ -26,8 +26,8 @@ public class DBTravelAgency {
 			return singleWhere(wClause, retrieveAssociation);
 		}
 
-		// find one TravelAgency having the name
-		public LinkedList<TravelAgency> searchTravelAgencysByName(String name, boolean retrieveAssociation) {
+		// find some TravelAgency having the name
+		public LinkedList<TravelAgency> searchTravelAgencyByName(String name, boolean retrieveAssociation) {
 			String wClause = "Name LIKE '%" + name + "%'";
 			System.out.println("TravelAgency " + wClause);
 			return miscWhere(wClause, retrieveAssociation);
@@ -191,6 +191,4 @@ public class DBTravelAgency {
 			}
 			return TravelAgencyObj;
 		}
-
-
 	}
