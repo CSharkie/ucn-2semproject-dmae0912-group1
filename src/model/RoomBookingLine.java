@@ -34,6 +34,13 @@ public class RoomBookingLine extends BookingLine {
 		super();
 	}
 
+	public RoomBookingLine(int roomBookingLineId, String depositStatus,
+			Timestamp checkInDateTime) {
+		super(roomBookingLineId);
+		this.checkInDateTime = checkInDateTime;
+		this.depositStatus = depositStatus;
+	}
+
 	public Room getRoom() {
 		return room;
 	}

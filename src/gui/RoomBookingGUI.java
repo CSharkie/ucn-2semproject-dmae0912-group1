@@ -69,6 +69,10 @@ public class RoomBookingGUI extends Composite {
 
 	private Button buttonDelete;
 
+	private Button btnPayDeposit;
+
+	private Button btnChechIn;
+
 	public RoomBookingGUI(Composite parent, int style) {
 		super(parent, style);
 		this.setLayout(new BorderLayout(0, 0));
@@ -193,7 +197,8 @@ public class RoomBookingGUI extends Composite {
 						employeeId = Integer.parseInt(txt_employee.getText());
 						if (txt_agency.getText().length() > 0)
 							agencyId = Integer.parseInt(txt_agency.getText());
-						totalPrice = Double.parseDouble(txt_totalPrice.getText());
+						totalPrice = Double.parseDouble(txt_totalPrice
+								.getText());
 					} catch (Exception exc) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -205,7 +210,8 @@ public class RoomBookingGUI extends Composite {
 						boolean ok = true;
 						try {
 							roomBookingCtr.updateRoomBooking(roomBookingId,
-									totalPrice, ownerGuestId, employeeId, agencyId);
+									totalPrice, ownerGuestId, employeeId,
+									agencyId);
 						} catch (Exception ex1) {
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -486,10 +492,18 @@ public class RoomBookingGUI extends Composite {
 					box.setMessage("There was an error. Please try again");
 					box.open();
 				}
-				if (!error) {
-					roomBookingCtr.addRoomBookingLine(roomBookingId, roomId,
-							startDate, endDate);
-					showRoomBookingLines(roomBookingId);
+				if (!error && startDate.getTime() < endDate.getTime()) {
+					if (roomBookingCtr.checkRoomAvailability(roomId, startDate,
+							endDate)) {
+						roomBookingCtr.addRoomBookingLine(roomBookingId,
+								roomId, startDate, endDate);
+						showRoomBookingLines(roomBookingId);
+					} else {
+						MessageBox box = new MessageBox(getShell(), 0);
+						box.setText("Error");
+						box.setMessage("Room is not available for that period");
+						box.open();
+					}
 				}
 			}
 		});
@@ -497,6 +511,60 @@ public class RoomBookingGUI extends Composite {
 		btnDel = new Button(composite_1, SWT.NONE);
 		btnDel.setText("Delete");
 		btnDel.setEnabled(false);
+
+		btnPayDeposit = new Button(composite_1, SWT.NONE);
+		btnPayDeposit.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int roomBookingId = 0;
+				int roomBookingLineId = 0;
+				boolean error = false;
+				try {
+					roomBookingId = Integer.parseInt(txt_id.getText());
+					roomBookingLineId = Integer.parseInt(table_1.getItem(
+							table_1.getSelectionIndex()).getText(0));
+				} catch (NumberFormatException ex) {
+					error = true;
+					MessageBox box = new MessageBox(getShell(), 0);
+					box.setText("Error");
+					box.setMessage("There was an error. Please try again");
+					box.open();
+				}
+				if (!error) {
+					roomBookingCtr.updateRoomBookingLineDepAndCheck(roomBookingLineId, "Paid", null);
+					showRoomBooking(roomBookingId);
+				}
+			}
+		});
+		btnPayDeposit.setText("Pay deposit");
+		btnPayDeposit.setEnabled(false);
+
+		btnChechIn = new Button(composite_1, SWT.NONE);
+		btnChechIn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int roomBookingId = 0;
+				int roomBookingLineId = 0;
+				boolean error = false;
+				try {
+					roomBookingId = Integer.parseInt(txt_id.getText());
+					roomBookingLineId = Integer.parseInt(table_1.getItem(
+							table_1.getSelectionIndex()).getText(0));
+				} catch (NumberFormatException ex) {
+					error = true;
+					MessageBox box = new MessageBox(getShell(), 0);
+					box.setText("Error");
+					box.setMessage("There was an error. Please try again");
+					box.open();
+				}
+				if (!error) {
+					roomBookingCtr.updateRoomBookingLineDepAndCheck(roomBookingLineId, "Paid", new Date());
+					showRoomBooking(roomBookingId);
+				}
+			}
+		});
+		btnChechIn.setText("CheckIn");
+		btnChechIn.setEnabled(false);
 
 		Composite composite_11 = new Composite(composite_6, SWT.NONE);
 		RowLayout rl_composite_11 = new RowLayout(SWT.VERTICAL);
@@ -626,7 +694,7 @@ public class RoomBookingGUI extends Composite {
 				showRoomBooking(id);
 			}
 		});
-		
+
 		table_1.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				int id = Integer.parseInt(table_1.getItem(
@@ -673,7 +741,9 @@ public class RoomBookingGUI extends Composite {
 				.getPersonId()));
 		txt_employee.setText(String.valueOf(roomBooking.getEmployee()
 				.getPersonId()));
-		if(roomBooking.getAgency().getAgencyId() != 0) txt_agency.setText(String.valueOf(roomBooking.getAgency().getAgencyId()));
+		if (roomBooking.getAgency().getAgencyId() != 0)
+			txt_agency.setText(String.valueOf(roomBooking.getAgency()
+					.getAgencyId()));
 		txt_totalPrice.setText(String.valueOf(roomBooking.getTotalPrice()));
 
 		txt_id.setEditable(false);
@@ -682,6 +752,9 @@ public class RoomBookingGUI extends Composite {
 		txt_agency.setEditable(false);
 		txt_totalPrice.setEditable(false);
 
+		btnChechIn.setEnabled(false);
+		btnPayDeposit.setEnabled(false);
+		
 		btnAdd.setEnabled(false);
 		btnDel.setEnabled(false);
 		txt_RoomId.setEditable(false);
@@ -726,13 +799,12 @@ public class RoomBookingGUI extends Composite {
 				int agencyId = 0;
 				try {
 					roomBookingId = Integer.parseInt(txt_id.getText());
-					ownerGuestId = Integer.parseInt(txt_ownerGuest
-							.getText());
+					ownerGuestId = Integer.parseInt(txt_ownerGuest.getText());
 					employeeId = Integer.parseInt(txt_employee.getText());
 					if (txt_agency.getText().length() > 0)
 						agencyId = Integer.parseInt(txt_agency.getText());
-					roomBookingCtr.updateRoomBooking(roomBookingId,
-							totalPrice, ownerGuestId, employeeId, agencyId);
+					roomBookingCtr.updateRoomBooking(roomBookingId, totalPrice,
+							ownerGuestId, employeeId, agencyId);
 					showRoomBooking(roomBookingId);
 				} catch (Exception ex1) {
 					MessageBox box = new MessageBox(getShell(), 0);
@@ -756,8 +828,30 @@ public class RoomBookingGUI extends Composite {
 		txt_GuestId.setEditable(true);
 		buttonAdd.setEnabled(true);
 		buttonDelete.setEnabled(true);
-		LinkedList<Guest> guests = roomBookingCtr
-				.getGuests(id);
+		
+		String depositStatus = table_1.getItem(
+				table_1.getSelectionIndex()).getText(6);
+		if(depositStatus.equals("Unpaid"))
+		{
+			btnPayDeposit.setEnabled(true);
+		}
+		else
+		{
+			btnPayDeposit.setEnabled(false);
+		}
+		
+		String checkedInStatus = table_1.getItem(
+				table_1.getSelectionIndex()).getText(5);
+		if(checkedInStatus.equals("null") && depositStatus.equals("Paid"))
+		{
+			btnChechIn.setEnabled(true);
+		}
+		else
+		{
+			btnChechIn.setEnabled(false);
+		}
+		
+		LinkedList<Guest> guests = roomBookingCtr.getGuests(id);
 		for (Guest guest : guests) {
 			TableItem item = new TableItem(table_2, SWT.NONE);
 			item.setText(0, String.valueOf(guest.getPersonId()));

@@ -76,13 +76,15 @@ public class RoomBookingCtr {
 	public void addRoomBookingLine(int roomBookingId, int roomId,
 			Date startDate, Date endDate) {
 		Room room = roomCtr.searchRoomById(roomId);
-		long days1 = startDate.getTime()/(60*60*24*1000);
-		long days2 = endDate.getTime()/(60*60*24*1000);
+		long days1 = startDate.getTime() / (60 * 60 * 24 * 1000);
+		long days2 = endDate.getTime() / (60 * 60 * 24 * 1000);
 		long amount = days2 - days1;
 		double subtotal = amount * room.getPrice();
 		if (room != null) {
-			RoomBookingLine roomBookingLine = new RoomBookingLine(new RoomBooking(roomBookingId), new Timestamp(startDate.getTime()),
-					new Timestamp(endDate.getTime()), subtotal, null, "Unpaid", room);
+			RoomBookingLine roomBookingLine = new RoomBookingLine(
+					new RoomBooking(roomBookingId), new Timestamp(
+							startDate.getTime()), new Timestamp(
+							endDate.getTime()), subtotal, null, "Unpaid", room);
 			try {
 				DBConnection.startTransaction();
 				DBRoomBookingLine dbRoomBookingLine = new DBRoomBookingLine();
@@ -101,6 +103,16 @@ public class RoomBookingCtr {
 		return list;
 	}
 
+	public int updateRoomBookingLineDepAndCheck(int roomBookingLineId,
+			String depositStatus, Date checkInDateTime) {
+		Timestamp checkIn = null;
+		if(checkInDateTime != null) checkIn = new Timestamp(checkInDateTime.getTime());
+		IFDBRoomBookingLine dbRoomBookingLine = new DBRoomBookingLine();
+		RoomBookingLine roomBookingline = new RoomBookingLine(
+				roomBookingLineId, depositStatus, checkIn);
+		return dbRoomBookingLine.updateRoomBookingLineDepAndCheck(roomBookingline);
+	}
+
 	public void removeRoomBoolingLine(int roomBookingLineId) {
 		IFDBRoomBookingLine dbRoomBookingLine = new DBRoomBookingLine();
 		dbRoomBookingLine.deleteRoomBookingLine(roomBookingLineId);
@@ -116,14 +128,21 @@ public class RoomBookingCtr {
 			DBConnection.rollbackTransaction();
 		}
 	}
-	
+
 	public void deleteGuest(int RoomBookingLineId, int GuestId) {
 		IFDBRoomBookingLine_Guest dbRoomBookingLine_Guest = new DBRoomBookingLine_Guest();
 		dbRoomBookingLine_Guest.deleteGuest(RoomBookingLineId, GuestId);
 	}
-	
+
 	public LinkedList<Guest> getGuests(int roomBookingLineId) {
 		IFDBRoomBookingLine_Guest dbRoomBookingLine_Guest = new DBRoomBookingLine_Guest();
 		return dbRoomBookingLine_Guest.getAllGuests(roomBookingLineId, false);
+	}
+
+	public boolean checkRoomAvailability(int roomId, Date startDate,
+			Date endDate) {
+		IFDBRoomBookingLine dbRoomBookingLine = new DBRoomBookingLine();
+		return dbRoomBookingLine.checkRoomAvailability(roomId, startDate,
+				endDate);
 	}
 }

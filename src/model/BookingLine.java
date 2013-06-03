@@ -26,6 +26,10 @@ public abstract class BookingLine {
 	public BookingLine() {
 	}
 
+	public BookingLine(int roomBookingLineId) {
+		this.bookingLineId = roomBookingLineId;
+	}
+
 	public int getBookingLineId() {
 		return bookingLineId;
 	}

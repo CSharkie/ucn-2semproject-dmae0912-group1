@@ -5,6 +5,8 @@ import model.RoomBooking;
 import model.RoomBookingLine;
 
 import java.sql.*;
+import java.util.Date;
+
 import model.LinkedList;
 
 public class DBRoomBookingLine extends DBBookingLine implements
@@ -91,6 +93,36 @@ public class DBRoomBookingLine extends DBBookingLine implements
 		return (rc);
 	}
 
+	@Override
+	public int updateRoomBookingLineDepAndCheck(RoomBookingLine roomBookingLine) {
+		int rc = -1;
+
+		String checkInDate = null;
+
+		if (roomBookingLine.getCheckInDateTime() != null) {
+			checkInDate = "'" + String.valueOf(roomBookingLine.getCheckInDateTime()) + "'";
+		} else
+			checkInDate = "NULL";
+
+		String query = "UPDATE RoomBookingLine SET " + "depositStatus ='"
+				+ roomBookingLine.getDepositStatus() + "', "
+				+ "checkInDateTime = " + checkInDate
+				+ " WHERE bookingLineId = '"
+				+ roomBookingLine.getBookingLineId() + "'";
+		System.out.println("Update query:" + query);
+		try { // update RoomBookingLine
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+
+			stmt.close();
+		}// end try
+		catch (Exception ex) {
+			System.out.println("Update exception in RoomBookingLine db: " + ex);
+		}
+		return (rc);
+	}
+
 	public int deleteRoomBookingLine(int roomBookingLineId) {
 		// just delete bookingLine, the DBMS will do the rest
 		return super.deleteBookingLine(roomBookingLineId);
@@ -115,15 +147,6 @@ public class DBRoomBookingLine extends DBBookingLine implements
 			while (results.next()) {
 				RoomBookingLine roomBookingLine = new RoomBookingLine();
 				roomBookingLine = buildRoomBookingLine(results);
-				// TODO retrieveAssociation
-				/*
-				 * if (retrieveAssociation) { IFDBSalesOrder salesOrders = new
-				 * DBSalesOrder(); LinkedList<SalesOrder> orders =
-				 * salesOrders.getAllSalesOrdersByPersonId
-				 * (PersonObj.getPersonId(), false);
-				 * PersonObj.setSalesOrders(orders);
-				 * System.out.println("Orders are selected"); }
-				 */
 				list.add(roomBookingLine);
 			}// end while
 			stmt.close();
@@ -152,15 +175,6 @@ public class DBRoomBookingLine extends DBBookingLine implements
 			if (results.next()) {
 				roomBookingLine = buildRoomBookingLine(results);
 				stmt.close();
-				// TODO retrieveAssociation
-				/*
-				 * if (retrieveAssociation) { IFDBSalesOrder salesOrders = new
-				 * DBSalesOrder(); LinkedList<SalesOrder> orders =
-				 * salesOrders.getAllSalesOrdersByPersonId
-				 * (PersonObj.getPersonId(), false);
-				 * PersonObj.setSalesOrders(orders);
-				 * System.out.println("Orders are selected"); }
-				 */
 			} else { // no RoomBookingLine was found
 				roomBookingLine = null;
 			}
@@ -201,5 +215,27 @@ public class DBRoomBookingLine extends DBBookingLine implements
 			System.out.println(e);
 		}
 		return roomBookingLine;
+	}
+
+	public boolean checkRoomAvailability(int roomId, Date startDate,
+			Date endDate) {
+		String wClause = " r.roomId = " + roomId + " AND ( '"
+				+ new Timestamp(startDate.getTime()) + "' >= b.startDateTime "
+				+ " AND '" + new Timestamp(startDate.getTime())
+				+ "' <= b.endDateTime ) OR ( '"
+				+ new Timestamp(endDate.getTime())
+				+ "' >= b.startDateTime AND '"
+				+ new Timestamp(endDate.getTime())
+				+ "' <= b.endDateTime ) OR ( b.startDateTime >= '"
+				+ new Timestamp(startDate.getTime())
+				+ "' AND b.endDateTime <= '" + new Timestamp(endDate.getTime())
+				+ "' )";
+		RoomBookingLine roomBookingLine = singleWhere(wClause, false);
+		if (roomBookingLine != null) {
+			System.out.println("false");
+			return false;
+		}
+		System.out.println("true");
+		return true;
 	}
 }
