@@ -219,7 +219,7 @@ public class DBRoomBookingLine extends DBBookingLine implements
 
 	public boolean checkRoomAvailability(int roomId, Date startDate,
 			Date endDate) {
-		String wClause = " r.roomId = " + roomId + " AND ( '"
+		String wClause = " r.roomId = " + roomId + " AND (( '"
 				+ new Timestamp(startDate.getTime()) + "' >= b.startDateTime "
 				+ " AND '" + new Timestamp(startDate.getTime())
 				+ "' <= b.endDateTime ) OR ( '"
@@ -229,7 +229,7 @@ public class DBRoomBookingLine extends DBBookingLine implements
 				+ "' <= b.endDateTime ) OR ( b.startDateTime >= '"
 				+ new Timestamp(startDate.getTime())
 				+ "' AND b.endDateTime <= '" + new Timestamp(endDate.getTime())
-				+ "' )";
+				+ "' ))";
 		RoomBookingLine roomBookingLine = singleWhere(wClause, false);
 		if (roomBookingLine != null) {
 			System.out.println("false");

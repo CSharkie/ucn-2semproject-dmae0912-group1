@@ -65,7 +65,7 @@ public abstract class DBPerson implements IFDBPerson {
 						+ "phoneno = '" + person.getPhoneNo()
 						+ "', "
 						+ "email = '" + person.getEmail()
-						+ "'";
+						+ "' WHERE personId = '" + person.getPersonId() + "'";
 				System.out.println("Update query:" + query);
 				try { // update Person
 					Statement stmt = con.createStatement();
