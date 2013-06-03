@@ -531,7 +531,8 @@ public class RoomBookingGUI extends Composite {
 					box.open();
 				}
 				if (!error) {
-					roomBookingCtr.updateRoomBookingLineDepAndCheck(roomBookingLineId, "Paid", null);
+					roomBookingCtr.updateRoomBookingLineDepAndCheck(
+							roomBookingLineId, "Paid", null);
 					showRoomBooking(roomBookingId);
 				}
 			}
@@ -558,7 +559,8 @@ public class RoomBookingGUI extends Composite {
 					box.open();
 				}
 				if (!error) {
-					roomBookingCtr.updateRoomBookingLineDepAndCheck(roomBookingLineId, "Paid", new Date());
+					roomBookingCtr.updateRoomBookingLineDepAndCheck(
+							roomBookingLineId, "Paid", new Date());
 					showRoomBooking(roomBookingId);
 				}
 			}
@@ -736,37 +738,46 @@ public class RoomBookingGUI extends Composite {
 
 	private void showRoomBooking(int id) {
 		RoomBooking roomBooking = roomBookingCtr.searchRoomBookingById(id);
-		txt_id.setText(String.valueOf(roomBooking.getRoomBookingId()));
-		txt_ownerGuest.setText(String.valueOf(roomBooking.getOwnerGuest()
-				.getPersonId()));
-		txt_employee.setText(String.valueOf(roomBooking.getEmployee()
-				.getPersonId()));
-		if (roomBooking.getAgency().getAgencyId() != 0)
-			txt_agency.setText(String.valueOf(roomBooking.getAgency()
-					.getAgencyId()));
-		txt_totalPrice.setText(String.valueOf(roomBooking.getTotalPrice()));
+		if (roomBooking != null) {
+			txt_id.setText(String.valueOf(roomBooking.getRoomBookingId()));
+			txt_ownerGuest.setText(String.valueOf(roomBooking.getOwnerGuest()
+					.getPersonId()));
+			txt_employee.setText(String.valueOf(roomBooking.getEmployee()
+					.getPersonId()));
+			if (roomBooking.getAgency().getAgencyId() != 0)
+				txt_agency.setText(String.valueOf(roomBooking.getAgency()
+						.getAgencyId()));
+			txt_totalPrice.setText(String.valueOf(roomBooking.getTotalPrice()));
 
-		txt_id.setEditable(false);
-		txt_ownerGuest.setEditable(false);
-		txt_employee.setEditable(false);
-		txt_agency.setEditable(false);
-		txt_totalPrice.setEditable(false);
+			txt_id.setEditable(false);
+			txt_ownerGuest.setEditable(false);
+			txt_employee.setEditable(false);
+			txt_agency.setEditable(false);
+			txt_totalPrice.setEditable(false);
 
-		btnChechIn.setEnabled(false);
-		btnPayDeposit.setEnabled(false);
-		
-		btnAdd.setEnabled(false);
-		btnDel.setEnabled(false);
-		txt_RoomId.setEditable(false);
-		txt_StartDate.setEditable(false);
-		txt_EndDate.setEditable(false);
+			btnChechIn.setEnabled(false);
+			btnPayDeposit.setEnabled(false);
 
-		showRoomBookingLines(roomBooking.getRoomBookingId());
+			btnAdd.setEnabled(false);
+			btnDel.setEnabled(false);
+			txt_RoomId.setEditable(false);
+			txt_StartDate.setEditable(false);
+			txt_EndDate.setEditable(false);
 
-		btn_create.setEnabled(true);
-		btn_edit.setEnabled(true);
-		btn_delete.setEnabled(true);
-		btn_save.setEnabled(false);
+			showRoomBookingLines(roomBooking.getRoomBookingId());
+
+			btn_create.setEnabled(true);
+			btn_edit.setEnabled(true);
+			btn_delete.setEnabled(true);
+			btn_save.setEnabled(false);
+		}
+		else
+		{
+			MessageBox box = new MessageBox(getShell(), 0);
+			box.setText("Error");
+			box.setMessage("There was an error. Please try again");
+			box.open();
+		}
 	}
 
 	public void showRoomBookingLines(int id) {
@@ -828,29 +839,23 @@ public class RoomBookingGUI extends Composite {
 		txt_GuestId.setEditable(true);
 		buttonAdd.setEnabled(true);
 		buttonDelete.setEnabled(true);
-		
-		String depositStatus = table_1.getItem(
-				table_1.getSelectionIndex()).getText(6);
-		if(depositStatus.equals("Unpaid"))
-		{
+
+		String depositStatus = table_1.getItem(table_1.getSelectionIndex())
+				.getText(6);
+		if (depositStatus.equals("Unpaid")) {
 			btnPayDeposit.setEnabled(true);
-		}
-		else
-		{
+		} else {
 			btnPayDeposit.setEnabled(false);
 		}
-		
-		String checkedInStatus = table_1.getItem(
-				table_1.getSelectionIndex()).getText(5);
-		if(checkedInStatus.equals("null") && depositStatus.equals("Paid"))
-		{
+
+		String checkedInStatus = table_1.getItem(table_1.getSelectionIndex())
+				.getText(5);
+		if (checkedInStatus.equals("null") && depositStatus.equals("Paid")) {
 			btnChechIn.setEnabled(true);
-		}
-		else
-		{
+		} else {
 			btnChechIn.setEnabled(false);
 		}
-		
+
 		LinkedList<Guest> guests = roomBookingCtr.getGuests(id);
 		for (Guest guest : guests) {
 			TableItem item = new TableItem(table_2, SWT.NONE);

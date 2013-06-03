@@ -518,6 +518,8 @@ public class SportFacilityBookingGUI extends Composite {
 	private void showSportFacilityBooking(int id) {
 		SportFacilityBooking sportFacilityBooking = sportFacilityBookingCtr
 				.searchSportFacilityBookingById(id);
+		if(sportFacilityBooking != null)
+		{
 		txt_id.setText(String.valueOf(sportFacilityBooking
 				.getSportFacilityBookingId()));
 		txt_totalPrice.setText(String.valueOf(sportFacilityBooking
@@ -542,6 +544,14 @@ public class SportFacilityBookingGUI extends Composite {
 		btn_edit.setEnabled(true);
 		btn_delete.setEnabled(true);
 		btn_save.setEnabled(false);
+		}
+		else
+		{
+			MessageBox box = new MessageBox(getShell(), 0);
+			box.setText("Error");
+			box.setMessage("There was an error. Please try again");
+			box.open();
+		}
 	}
 
 	public void showSportFacilityBookingLines(int id) {
