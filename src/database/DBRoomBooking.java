@@ -54,15 +54,14 @@ public class DBRoomBooking implements IFDBRoomBooking {
 		System.out.println("next ID = " + nextId);
 		roomBooking.setRoomBookingId(nextId);
 		int rc = -1;
-		
+
 		String agency = null;
-		
-		if(roomBooking.getAgency().getAgencyId() != 0)
-		{
+
+		if (roomBooking.getAgency().getAgencyId() != 0) {
 			agency = String.valueOf(roomBooking.getAgency().getAgencyId());
-		}
-		else agency = "NULL";
-		
+		} else
+			agency = "NULL";
+
 		String query = "INSERT INTO RoomBooking(roomBookingId, AgencyId, totalPrice, OwnerGuestId, EmployeeId) VALUES('"
 				+ roomBooking.getRoomBookingId()
 				+ "',"
@@ -91,22 +90,21 @@ public class DBRoomBooking implements IFDBRoomBooking {
 	@Override
 	public int updateRoomBooking(RoomBooking roomBooking) {
 		int rc = -1;
-		
+
 		String agency = null;
-		
-		if(roomBooking.getAgency().getAgencyId() != 0)
-		{
+
+		if (roomBooking.getAgency().getAgencyId() != 0) {
 			agency = String.valueOf(roomBooking.getAgency().getAgencyId());
-		}
-		else agency = "NULL";
+		} else
+			agency = "NULL";
 
 		String query = "UPDATE RoomBooking SET " + "totalPrice ='"
 				+ roomBooking.getTotalPrice() + "', " + "ownerGuestId ='"
 				+ roomBooking.getOwnerGuest().getPersonId() + "', AgencyId = "
-				+ agency + ", "
-				+ "employeeId ='" + roomBooking.getEmployee().getPersonId()
-				+ "' " + " WHERE RoomBookingId = '"
-				+ roomBooking.getRoomBookingId() + "'";
+				+ agency + ", " + "employeeId ='"
+				+ roomBooking.getEmployee().getPersonId() + "' "
+				+ " WHERE RoomBookingId = '" + roomBooking.getRoomBookingId()
+				+ "'";
 		System.out.println("Update query:" + query);
 		try { // update RoomBooking
 			Statement stmt = con.createStatement();
@@ -166,7 +164,8 @@ public class DBRoomBooking implements IFDBRoomBooking {
 				for (RoomBooking roomBooking : list) {
 					// OwnerGuest
 					DBGuest dbOwnerGuest = new DBGuest();
-					Guest ownerGuest = dbOwnerGuest.searchGuestById(roomBooking.getOwnerGuest().getPersonId(), false);
+					Guest ownerGuest = dbOwnerGuest.searchGuestById(roomBooking
+							.getOwnerGuest().getPersonId(), false);
 					System.out.println("Guest is selected ");
 					roomBooking.setOwnerGuest(ownerGuest);
 				}
@@ -217,7 +216,7 @@ public class DBRoomBooking implements IFDBRoomBooking {
 		}
 
 		query = query + " FROM RoomBooking r ";
-		
+
 		if (joinClause.length() > 0) {
 			query = query + "JOIN " + joinClause;
 		}
@@ -237,8 +236,9 @@ public class DBRoomBooking implements IFDBRoomBooking {
 			roomBookingObj.setOwnerGuest(new Guest(results
 					.getInt("OwnerGuestId")));
 			roomBookingObj.setEmployee(new Employee(results
-					.getInt("EmployeeId")));			
-			roomBookingObj.setAgency(new TravelAgency(results.getInt("AgencyId")));
+					.getInt("EmployeeId")));
+			roomBookingObj.setAgency(new TravelAgency(results
+					.getInt("AgencyId")));
 		} catch (Exception e) {
 			System.out.println("error in building the RoomBooking object");
 		}

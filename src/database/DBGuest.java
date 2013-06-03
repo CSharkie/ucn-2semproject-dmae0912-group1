@@ -29,8 +29,10 @@ public class DBGuest extends DBPerson implements IFDBGuest {
 	}
 
 	// get some Guest having the Name
-	public LinkedList<Guest> searchGuestByName(String guestName, boolean retriveAssociation) {
-		String wClause = " p.firstname LIKE '%" + guestName + "%' OR p.surname LIKE '%" + guestName + "%'";
+	public LinkedList<Guest> searchGuestByName(String guestName,
+			boolean retriveAssociation) {
+		String wClause = " p.firstname LIKE '%" + guestName
+				+ "%' OR p.surname LIKE '%" + guestName + "%'";
 		return miscWhere(wClause, retriveAssociation);
 	}
 

@@ -100,7 +100,9 @@ public class DBRoomBookingLine extends DBBookingLine implements
 		String checkInDate = null;
 
 		if (roomBookingLine.getCheckInDateTime() != null) {
-			checkInDate = "'" + String.valueOf(roomBookingLine.getCheckInDateTime()) + "'";
+			checkInDate = "'"
+					+ String.valueOf(roomBookingLine.getCheckInDateTime())
+					+ "'";
 		} else
 			checkInDate = "NULL";
 

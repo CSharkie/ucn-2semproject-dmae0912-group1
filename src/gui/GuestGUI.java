@@ -28,7 +28,7 @@ import org.eclipse.swt.layout.GridData;
 
 public class GuestGUI extends Composite {
 
-	PersonCtr persCtr;
+	private PersonCtr persCtr;
 
 	// Tables
 	private Table table;
@@ -101,7 +101,7 @@ public class GuestGUI extends Composite {
 		TableColumn tblclmnFirstName = new TableColumn(table, SWT.NONE);
 		tblclmnFirstName.setWidth(100);
 		tblclmnFirstName.setText("FirstName");
-		
+
 		TableColumn tblclmnSurName = new TableColumn(table, SWT.NONE);
 		tblclmnSurName.setWidth(100);
 		tblclmnSurName.setText("SurName");
@@ -158,7 +158,8 @@ public class GuestGUI extends Composite {
 						boolean ok = true;
 						try {
 							guestId = persCtr.insertGuest(firstName, surName,
-									address, phoneNo, email, passportNo, password, discount);
+									address, phoneNo, email, passportNo,
+									password, discount);
 						} catch (Exception ex1) {
 							ok = false;
 							MessageBox box = new MessageBox(getShell(), 0);
@@ -194,7 +195,8 @@ public class GuestGUI extends Composite {
 						boolean ok = true;
 						try {
 							persCtr.updateGuest(guestId, firstName, surName,
-									address, phoneNo, email, passportNo, password, discount);
+									address, phoneNo, email, passportNo,
+									password, discount);
 						} catch (Exception ex1) {
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -382,30 +384,36 @@ public class GuestGUI extends Composite {
 		gd_txt_phoneNo.widthHint = 203;
 		txt_phoneNo.setEditable(false);
 		txt_phoneNo.setLayoutData(gd_txt_phoneNo);
-		
+
 		Label lblPassportNo = new Label(composite_7, SWT.NONE);
 		lblPassportNo.setText("Passport No:");
-		lblPassportNo.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		
+		lblPassportNo.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false,
+				false, 1, 1));
+
 		txt_passportNo = new Text(composite_7, SWT.BORDER);
 		txt_passportNo.setEditable(false);
-		txt_passportNo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
+		txt_passportNo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false, 1, 1));
+
 		Label lblPassword = new Label(composite_7, SWT.NONE);
-		lblPassword.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		lblPassword.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false,
+				false, 1, 1));
 		lblPassword.setText("Password:");
-		
+
 		txt_password = new Text(composite_7, SWT.BORDER);
 		txt_password.setEditable(false);
-		txt_password.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
+		txt_password.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false, 1, 1));
+
 		Label lblDiscount = new Label(composite_7, SWT.NONE);
-		lblDiscount.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		lblDiscount.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false,
+				false, 1, 1));
 		lblDiscount.setText("Discount:");
-		
+
 		txt_discount = new Text(composite_7, SWT.BORDER);
 		txt_discount.setEditable(false);
-		txt_discount.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txt_discount.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false, 1, 1));
 
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {

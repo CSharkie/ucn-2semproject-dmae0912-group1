@@ -4,21 +4,21 @@ import model.LinkedList;
 import model.SportFacility;
 
 public interface IFDBSportFacility {
-	// getAllRooms
+	// getAllSportFacilities
 	public LinkedList<SportFacility> getAllSportFacilities(
 			boolean retrieveAssociation);
 
-	// get one Room by ID
+	// get one SportFacility by ID
 	public SportFacility searchSportFacilityById(int sportFacilityId,
 			boolean retrieveAssociation);
 
-	// insert a new Room
+	// insert a new SportFacility
 	public int insertSportFacility(SportFacility sportFacility)
 			throws Exception;
 
-	// update information about a Room;
+	// update information about a SportFacility;
 	public int updateSportFacility(SportFacility sportFacility);
 
-	// delete a Room;
+	// delete a SportFacility;
 	public int deleteSportFacility(int sportFacilityId);
 }

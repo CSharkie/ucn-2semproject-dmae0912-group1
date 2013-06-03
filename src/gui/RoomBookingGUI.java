@@ -36,7 +36,7 @@ import controller.RoomBookingCtr;
 
 public class RoomBookingGUI extends Composite {
 
-	RoomBookingCtr roomBookingCtr;
+	private RoomBookingCtr roomBookingCtr;
 
 	// Tables
 	private Table table;
@@ -770,9 +770,7 @@ public class RoomBookingGUI extends Composite {
 			btn_edit.setEnabled(true);
 			btn_delete.setEnabled(true);
 			btn_save.setEnabled(false);
-		}
-		else
-		{
+		} else {
 			MessageBox box = new MessageBox(getShell(), 0);
 			box.setText("Error");
 			box.setMessage("There was an error. Please try again");

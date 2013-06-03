@@ -32,7 +32,8 @@ public class DBEmployee extends DBPerson implements IFDBEmployee {
 	// get some Employees having the Name
 	public LinkedList<Employee> searchEmployeeByName(String employeeName,
 			boolean retriveAssociation) {
-		String wClause = " p.firstname LIKE '%" + employeeName + "%' OR p.surname LIKE '%" + employeeName + "%'";
+		String wClause = " p.firstname LIKE '%" + employeeName
+				+ "%' OR p.surname LIKE '%" + employeeName + "%'";
 		return miscWhere(wClause, retriveAssociation);
 	}
 
@@ -60,7 +61,8 @@ public class DBEmployee extends DBPerson implements IFDBEmployee {
 			System.out.println("Employee is not inserted");
 			throw new Exception("Employee is not inserted");
 		}
-		if(rc != -1) return nextId;
+		if (rc != -1)
+			return nextId;
 		return (rc);
 	}
 
@@ -68,10 +70,9 @@ public class DBEmployee extends DBPerson implements IFDBEmployee {
 	public int updateEmployee(Employee employee) {
 		int rc = -1;
 		super.updatePerson(employee);
-		String query = "UPDATE Employee SET salary ='"
-				+ employee.getSalary() + "', " + "type = '"
-				+ employee.getType() + "' WHERE personId = '"
-				+ employee.getPersonId() + "'";
+		String query = "UPDATE Employee SET salary ='" + employee.getSalary()
+				+ "', " + "type = '" + employee.getType()
+				+ "' WHERE personId = '" + employee.getPersonId() + "'";
 		System.out.println("Update query:" + query);
 		try { // update Employee
 			Statement stmt = con.createStatement();

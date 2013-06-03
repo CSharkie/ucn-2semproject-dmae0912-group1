@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class SportFacilityBookingLine extends BookingLine {
 
-	SportFacility sportFacility;
-	SportFacilityBooking sportFacilityBooking;
+	private SportFacility sportFacility;
+	private SportFacilityBooking sportFacilityBooking;
 
 	public SportFacilityBookingLine(int bookingLineId,
 			SportFacilityBooking sportFacilityBooking, Timestamp startDateTime,

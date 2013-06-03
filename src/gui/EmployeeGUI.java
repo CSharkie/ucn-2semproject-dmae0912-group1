@@ -28,7 +28,7 @@ import org.eclipse.swt.layout.GridData;
 
 public class EmployeeGUI extends Composite {
 
-	PersonCtr persCtr;
+	private PersonCtr persCtr;
 
 	// Tables
 	private Table table;
@@ -100,11 +100,11 @@ public class EmployeeGUI extends Composite {
 		TableColumn tblclmnFirstName = new TableColumn(table, SWT.NONE);
 		tblclmnFirstName.setWidth(100);
 		tblclmnFirstName.setText("FirstName");
-		
+
 		TableColumn tblclmnSurName = new TableColumn(table, SWT.NONE);
 		tblclmnSurName.setWidth(100);
 		tblclmnSurName.setText("SurName");
-		
+
 		scrolledComposite.setContent(table);
 		scrolledComposite.setMinSize(table
 				.computeSize(SWT.DEFAULT, SWT.DEFAULT));

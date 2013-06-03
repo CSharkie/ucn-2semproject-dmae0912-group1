@@ -2,24 +2,25 @@ package model;
 
 public class Room {
 
-	int roomId;
-	String type;
-	double price;
-	int capacity;
-	String status;
-	
-	public Room(){
-		
+	private int roomId;
+	private String type;
+	private double price;
+	private int capacity;
+	private String status;
+
+	public Room() {
+
 	}
-	
-	public Room(int roomId, String type, double price, int capacity, String status) {
+
+	public Room(int roomId, String type, double price, int capacity,
+			String status) {
 		this.roomId = roomId;
 		this.type = type;
 		this.price = price;
 		this.capacity = capacity;
 		this.status = status;
 	}
-	
+
 	public Room(String type, double price, int capacity, String status) {
 		this.type = type;
 		this.price = price;
@@ -70,6 +71,5 @@ public class Room {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
 }
