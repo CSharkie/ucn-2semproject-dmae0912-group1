@@ -2,12 +2,12 @@ package model;
 
 public class RoomBooking {
 
-	int roomBookingId;
-	double totalPrice;
-	LinkedList<RoomBookingLine> roomBookingLines;
-	Guest ownerGuest;
-	Employee employee;
-	TravelAgency agency;
+	private int roomBookingId;
+	private double totalPrice;
+	private LinkedList<RoomBookingLine> roomBookingLines;
+	private Guest ownerGuest;
+	private Employee employee;
+	private TravelAgency agency;
 
 	public RoomBooking(int roomBookingId, double totalPrice,
 			LinkedList<RoomBookingLine> roomBookingLines, Guest ownerGuest,
@@ -27,7 +27,7 @@ public class RoomBooking {
 		this.ownerGuest = ownerGuest;
 		this.employee = employee;
 	}
-	
+
 	public RoomBooking(double totalPrice,
 			LinkedList<RoomBookingLine> roomBookingLines, Guest ownerGuest,
 			Employee employee, TravelAgency travelAgency) {
@@ -48,7 +48,7 @@ public class RoomBooking {
 		this.ownerGuest = ownerGuest;
 		this.employee = employee;
 	}
-	
+
 	public RoomBooking(int roomBookingId, double totalPrice, Guest ownerGuest,
 			Employee employee, TravelAgency travelAgency) {
 		this.roomBookingId = roomBookingId;
@@ -63,8 +63,9 @@ public class RoomBooking {
 		this.employee = employee;
 		this.totalPrice = 0.0;
 	}
-	
-	public RoomBooking(Guest ownerGuest, Employee employee, TravelAgency travelAgency) {
+
+	public RoomBooking(Guest ownerGuest, Employee employee,
+			TravelAgency travelAgency) {
 		this.ownerGuest = ownerGuest;
 		this.employee = employee;
 		this.agency = travelAgency;

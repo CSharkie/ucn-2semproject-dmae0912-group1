@@ -28,7 +28,7 @@ import org.eclipse.swt.layout.GridData;
 
 public class SportFacilityGUI extends Composite {
 
-	SportFacilityCtr sportFacilityCtr;
+	private SportFacilityCtr sportFacilityCtr;
 
 	// Tables
 	private Table table;
@@ -75,18 +75,17 @@ public class SportFacilityGUI extends Composite {
 			public void widgetSelected(SelectionEvent e) {
 				int id = 0;
 				boolean error = false;
-				try
-				{
+				try {
 					id = Integer.parseInt(search_id.getText());
-				}
-				catch (NumberFormatException ex) {
+				} catch (NumberFormatException ex) {
 					MessageBox box = new MessageBox(getShell(), 0);
 					box.setText("Error");
 					box.setMessage("There was an error. Please try again");
 					box.open();
 					error = true;
 				}
-				if(!error) showSearchedRooms(id);
+				if (!error)
+					showSearchedRooms(id);
 			}
 		});
 		btn_search.setText("Search");
@@ -132,7 +131,7 @@ public class SportFacilityGUI extends Composite {
 		btn_save = new Button(composite_5, SWT.CENTER);
 		btn_save.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				boolean create = false;				
+				boolean create = false;
 				int sportFacilityId = 0;
 				String name = null;
 				int maxPersons = 0;
@@ -149,7 +148,8 @@ public class SportFacilityGUI extends Composite {
 						maxPersons = Integer.parseInt(txt_maxPersons.getText());
 						cost = Double.parseDouble(txt_cost.getText());
 						type = txt_type.getText();
-						numberOfLocations = Integer.parseInt(txt_numberOfLocations.getText());
+						numberOfLocations = Integer
+								.parseInt(txt_numberOfLocations.getText());
 					} catch (Exception exc) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -160,7 +160,9 @@ public class SportFacilityGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							sportFacilityId = sportFacilityCtr.insertSportFacility(name, maxPersons, cost, type, numberOfLocations);
+							sportFacilityId = sportFacilityCtr
+									.insertSportFacility(name, maxPersons,
+											cost, type, numberOfLocations);
 						} catch (Exception ex1) {
 							ok = false;
 							MessageBox box = new MessageBox(getShell(), 0);
@@ -181,7 +183,8 @@ public class SportFacilityGUI extends Composite {
 						maxPersons = Integer.parseInt(txt_maxPersons.getText());
 						cost = Double.parseDouble(txt_cost.getText());
 						type = txt_type.getText();
-						numberOfLocations = Integer.parseInt(txt_numberOfLocations.getText());
+						numberOfLocations = Integer
+								.parseInt(txt_numberOfLocations.getText());
 					} catch (Exception exc) {
 						MessageBox box = new MessageBox(getShell(), 0);
 						box.setText("Error");
@@ -192,7 +195,9 @@ public class SportFacilityGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							sportFacilityCtr.updateSportFacility(sportFacilityId, name, maxPersons, cost, type, numberOfLocations);
+							sportFacilityCtr.updateSportFacility(
+									sportFacilityId, name, maxPersons, cost,
+									type, numberOfLocations);
 						} catch (Exception ex1) {
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -335,8 +340,8 @@ public class SportFacilityGUI extends Composite {
 		lblMaxPersons.setText("Max persons:");
 
 		txt_maxPersons = new Text(composite_7, SWT.BORDER);
-		GridData gd_txt_maxPersons = new GridData(SWT.LEFT, SWT.CENTER, true, false,
-				1, 1);
+		GridData gd_txt_maxPersons = new GridData(SWT.LEFT, SWT.CENTER, true,
+				false, 1, 1);
 		gd_txt_maxPersons.widthHint = 203;
 		txt_maxPersons.setEditable(false);
 		txt_maxPersons.setLayoutData(gd_txt_maxPersons);
@@ -347,8 +352,8 @@ public class SportFacilityGUI extends Composite {
 		lblCost.setText("Cost:");
 
 		txt_cost = new Text(composite_7, SWT.BORDER);
-		GridData gd_txt_cost = new GridData(SWT.LEFT, SWT.CENTER, true,
-				false, 1, 1);
+		GridData gd_txt_cost = new GridData(SWT.LEFT, SWT.CENTER, true, false,
+				1, 1);
 		gd_txt_cost.widthHint = 203;
 		txt_cost.setEditable(false);
 		txt_cost.setLayoutData(gd_txt_cost);
@@ -359,19 +364,21 @@ public class SportFacilityGUI extends Composite {
 		lblType.setText("Type:");
 
 		txt_type = new Text(composite_7, SWT.BORDER);
-		GridData gd_txt_type = new GridData(SWT.LEFT, SWT.CENTER, true,
-				false, 1, 1);
+		GridData gd_txt_type = new GridData(SWT.LEFT, SWT.CENTER, true, false,
+				1, 1);
 		gd_txt_type.widthHint = 203;
 		txt_type.setEditable(false);
 		txt_type.setLayoutData(gd_txt_type);
-		
+
 		Label lblNumberOfLocations = new Label(composite_7, SWT.NONE);
-		lblNumberOfLocations.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		lblNumberOfLocations.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER,
+				false, false, 1, 1));
 		lblNumberOfLocations.setText("Number of locations:");
-		
+
 		txt_numberOfLocations = new Text(composite_7, SWT.BORDER);
 		txt_numberOfLocations.setEditable(false);
-		txt_numberOfLocations.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txt_numberOfLocations.setLayoutData(new GridData(SWT.FILL, SWT.CENTER,
+				true, false, 1, 1));
 
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
@@ -386,7 +393,8 @@ public class SportFacilityGUI extends Composite {
 	private void showAllRooms() {
 		table.clearAll();
 		table.setItemCount(0);
-		LinkedList<SportFacility> sportFacilities = sportFacilityCtr.getAllSportFacilities();
+		LinkedList<SportFacility> sportFacilities = sportFacilityCtr
+				.getAllSportFacilities();
 		for (SportFacility sportFacility : sportFacilities) {
 			TableItem item = new TableItem(table, SWT.NONE);
 			item.setText(0, String.valueOf(sportFacility.getSportFacilityId()));
@@ -399,7 +407,8 @@ public class SportFacilityGUI extends Composite {
 	private void showSearchedRooms(int id) {
 		table.clearAll();
 		table.setItemCount(0);
-		SportFacility sportFacility = sportFacilityCtr.searchSportFacilityById(id);
+		SportFacility sportFacility = sportFacilityCtr
+				.searchSportFacilityById(id);
 		if (sportFacility != null) {
 			TableItem item = new TableItem(table, SWT.NONE);
 			item.setText(0, String.valueOf(sportFacility.getSportFacilityId()));
@@ -409,13 +418,15 @@ public class SportFacilityGUI extends Composite {
 	}
 
 	private void showRoom(int id) {
-		SportFacility sportFacility = sportFacilityCtr.searchSportFacilityById(id);
+		SportFacility sportFacility = sportFacilityCtr
+				.searchSportFacilityById(id);
 		txt_id.setText(String.valueOf(sportFacility.getSportFacilityId()));
 		txt_name.setText(sportFacility.getName());
 		txt_maxPersons.setText(String.valueOf(sportFacility.getMaxPersons()));
 		txt_cost.setText(String.valueOf(sportFacility.getCost()));
 		txt_type.setText(sportFacility.getType());
-		txt_numberOfLocations.setText(String.valueOf(sportFacility.getNumberOfLocations()));
+		txt_numberOfLocations.setText(String.valueOf(sportFacility
+				.getNumberOfLocations()));
 
 		txt_id.setEditable(false);
 		txt_name.setEditable(false);

@@ -28,7 +28,7 @@ import org.eclipse.swt.layout.GridData;
 
 public class InstructorGUI extends Composite {
 
-	PersonCtr persCtr;
+	private PersonCtr persCtr;
 
 	// Tables
 	private Table table;
@@ -100,7 +100,7 @@ public class InstructorGUI extends Composite {
 		TableColumn tblclmnFirstName = new TableColumn(table, SWT.NONE);
 		tblclmnFirstName.setWidth(100);
 		tblclmnFirstName.setText("FirstName");
-		
+
 		TableColumn tblclmnSurName = new TableColumn(table, SWT.NONE);
 		tblclmnSurName.setWidth(100);
 		tblclmnSurName.setText("SurName");
@@ -378,22 +378,26 @@ public class InstructorGUI extends Composite {
 		gd_txt_phoneNo.widthHint = 203;
 		txt_phoneNo.setEditable(false);
 		txt_phoneNo.setLayoutData(gd_txt_phoneNo);
-		
+
 		Label lblSalary = new Label(composite_7, SWT.NONE);
-		lblSalary.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		lblSalary.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false,
+				false, 1, 1));
 		lblSalary.setText("Salary:");
-		
+
 		txt_salary = new Text(composite_7, SWT.BORDER);
 		txt_salary.setEditable(false);
-		txt_salary.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
+		txt_salary.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false, 1, 1));
+
 		Label lblSkills = new Label(composite_7, SWT.NONE);
-		lblSkills.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		lblSkills.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false,
+				false, 1, 1));
 		lblSkills.setText("Skills:");
-		
+
 		txt_skills = new Text(composite_7, SWT.BORDER);
 		txt_skills.setEditable(false);
-		txt_skills.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txt_skills.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false, 1, 1));
 
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {

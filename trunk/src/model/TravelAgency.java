@@ -1,21 +1,21 @@
 package model;
 
 public class TravelAgency {
-	int agencyId;
-	String name;
-	double discount;
-	String address;
-	String phoneNo;
-	String email;
-	
-	public TravelAgency(){
-		
+	private int agencyId;
+	private String name;
+	private double discount;
+	private String address;
+	private String phoneNo;
+	private String email;
+
+	public TravelAgency() {
+
 	}
-	
-	public TravelAgency(int agencyId){
+
+	public TravelAgency(int agencyId) {
 		this.agencyId = agencyId;
 	}
-	
+
 	public TravelAgency(int agencyId, String name, double discount,
 			String address, String phoneNo, String email) {
 		this.agencyId = agencyId;
@@ -25,9 +25,9 @@ public class TravelAgency {
 		this.phoneNo = phoneNo;
 		this.email = email;
 	}
-	
-	public TravelAgency(String name, double discount,
-			String address, String phoneNo, String email) {
+
+	public TravelAgency(String name, double discount, String address,
+			String phoneNo, String email) {
 		this.name = name;
 		this.discount = discount;
 		this.address = address;

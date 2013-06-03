@@ -25,7 +25,8 @@ public interface IFDBRoomBookingLine {
 	public int deleteRoomBookingLine(int roomBookingLineId);
 
 	// check a Room availability;
-	public boolean checkRoomAvailability(int roomId, Date startDate, Date endDate);
+	public boolean checkRoomAvailability(int roomId, Date startDate,
+			Date endDate);
 
 	public int updateRoomBookingLineDepAndCheck(RoomBookingLine roomBookingline);
 }

@@ -17,24 +17,24 @@ public class DBRoom implements IFDBRoom {
 	public LinkedList<Room> getAllRooms(boolean retrieveAssociation) {
 		return miscWhere("", retrieveAssociation);
 	}
-	
+
 	// get one Room having the ID
-	public Room searchRoomById(int RoomId,
-			boolean retrieveAssociation) {
+	public Room searchRoomById(int RoomId, boolean retrieveAssociation) {
 		String wClause = " RoomId = '" + RoomId + "'";
 		return singleWhere(wClause, retrieveAssociation);
 	}
 
-	public LinkedList<Room> searchRoomsByType(String type, boolean retrieveAssociation) {
+	public LinkedList<Room> searchRoomsByType(String type,
+			boolean retrieveAssociation) {
 		String wClause = "Type LIKE '%" + type + "%'";
 		System.out.println("Room " + wClause);
 		return miscWhere(wClause, retrieveAssociation);
 	}
-	
+
 	// insert a new Room
 	public int insertRoom(Room room) throws Exception { // call to get
-																// the next Id
-																// number
+														// the next Id
+														// number
 		int nextId = getMax.getMaxId("Select max(RoomId) from Room");
 		nextId = nextId + 1;
 		System.out.println("next ID = " + nextId);
@@ -49,8 +49,7 @@ public class DBRoom implements IFDBRoom {
 				+ "','"
 				+ room.getCapacity()
 				+ "','"
-				+ room.getStatus()
-				+ "');";
+				+ room.getStatus() + "');";
 
 		System.out.println("insert : " + query);
 		try { // insert new Room
@@ -74,9 +73,8 @@ public class DBRoom implements IFDBRoom {
 		String query = "UPDATE Room SET " + "type ='" + roomObj.getType()
 				+ "', " + "price ='" + roomObj.getPrice() + "', "
 				+ "capacity ='" + roomObj.getCapacity() + "', " + "status ='"
-				+ roomObj.getStatus()
-				+ "' " + " WHERE RoomId = '" + roomObj.getRoomId()
-				+ "'";
+				+ roomObj.getStatus() + "' " + " WHERE RoomId = '"
+				+ roomObj.getRoomId() + "'";
 		System.out.println("Update query:" + query);
 		try { // update Room
 			Statement stmt = con.createStatement();
@@ -126,7 +124,7 @@ public class DBRoom implements IFDBRoom {
 			while (results.next()) {
 				Room roomObj = new Room();
 				roomObj = buildRoom(results);
-				
+
 				list.add(roomObj);
 			}// end while
 			stmt.close();
@@ -154,7 +152,7 @@ public class DBRoom implements IFDBRoom {
 			if (results.next()) {
 				roomObj = buildRoom(results);
 				stmt.close();
-				
+
 			} else { // no Room was found
 				roomObj = null;
 			}
@@ -189,6 +187,5 @@ public class DBRoom implements IFDBRoom {
 		}
 		return roomObj;
 	}
-
 
 }

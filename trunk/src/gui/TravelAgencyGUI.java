@@ -28,7 +28,7 @@ import org.eclipse.swt.layout.GridData;
 
 public class TravelAgencyGUI extends Composite {
 
-	TravelAgencyCtr travelAgencyCtr;
+	private TravelAgencyCtr travelAgencyCtr;
 
 	// Tables
 	private Table table;
@@ -145,8 +145,10 @@ public class TravelAgencyGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							travelAgencyId = travelAgencyCtr.insertTravelAgency(name, discount, address, phoneNo, email);
-									} catch (Exception ex1) {
+							travelAgencyId = travelAgencyCtr
+									.insertTravelAgency(name, discount,
+											address, phoneNo, email);
+						} catch (Exception ex1) {
 							ok = false;
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -177,7 +179,8 @@ public class TravelAgencyGUI extends Composite {
 					if (!error) {
 						boolean ok = true;
 						try {
-							travelAgencyCtr.updateTravelAgency(travelAgencyId, name, discount, address, phoneNo, email);
+							travelAgencyCtr.updateTravelAgency(travelAgencyId,
+									name, discount, address, phoneNo, email);
 						} catch (Exception ex1) {
 							MessageBox box = new MessageBox(getShell(), 0);
 							box.setText("Error");
@@ -373,7 +376,8 @@ public class TravelAgencyGUI extends Composite {
 	private void showAllTravelAgencies() {
 		table.clearAll();
 		table.setItemCount(0);
-		LinkedList<TravelAgency> travelAgencies = travelAgencyCtr.getAllTravelAgencies();
+		LinkedList<TravelAgency> travelAgencies = travelAgencyCtr
+				.getAllTravelAgencies();
 		for (TravelAgency travelAgency : travelAgencies) {
 			TableItem item = new TableItem(table, SWT.NONE);
 			item.setText(0, String.valueOf(travelAgency.getAgencyId()));

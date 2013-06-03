@@ -41,20 +41,20 @@ public class MainProgram {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		
+
 		shell = new Shell();
 		shell.setSize(800, 600);
-		
+
 		Monitor primary = display.getPrimaryMonitor();
 		Rectangle bounds = primary.getBounds();
 		Rectangle rect = shell.getBounds();
 		int x = bounds.x + (bounds.width - rect.width) / 2;
 		int y = bounds.y + (bounds.height - rect.height) / 2;
-		shell.setLocation (x, y);
+		shell.setLocation(x, y);
 
 		shell.open();
 		shell.layout();
-		
+
 		shell.setText("Morocco Holiday Center");
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		createContents();
@@ -81,47 +81,50 @@ public class MainProgram {
 
 		GuestGUI guestGUI = new GuestGUI(tabFolder, SWT.NONE);
 		tbtmGuests.setControl(guestGUI);
-		
+
 		TabItem tbtmEmployees = new TabItem(tabFolder, SWT.NONE);
 		tbtmEmployees.setText("Employees");
 
 		EmployeeGUI employeeGUI = new EmployeeGUI(tabFolder, SWT.NONE);
 		tbtmEmployees.setControl(employeeGUI);
-		
+
 		TabItem tbtmInstructors = new TabItem(tabFolder, SWT.NONE);
 		tbtmInstructors.setText("Instructors");
 
 		InstructorGUI instructorGUI = new InstructorGUI(tabFolder, SWT.NONE);
 		tbtmInstructors.setControl(instructorGUI);
-		
+
 		TabItem tbtmRooms = new TabItem(tabFolder, SWT.NONE);
 		tbtmRooms.setText("Rooms");
 
 		RoomGUI roomGUI = new RoomGUI(tabFolder, SWT.NONE);
 		tbtmRooms.setControl(roomGUI);
-		
+
 		TabItem tbtmTravelAgencies = new TabItem(tabFolder, SWT.NONE);
 		tbtmTravelAgencies.setText("Travel Agencies");
 
-		TravelAgencyGUI travelAgencyGUI = new TravelAgencyGUI(tabFolder, SWT.NONE);
+		TravelAgencyGUI travelAgencyGUI = new TravelAgencyGUI(tabFolder,
+				SWT.NONE);
 		tbtmTravelAgencies.setControl(travelAgencyGUI);
-		
+
 		TabItem tbtmSportFacilities = new TabItem(tabFolder, SWT.NONE);
 		tbtmSportFacilities.setText("Sport Facilities");
 
-		SportFacilityGUI sportFacilityGUI = new SportFacilityGUI(tabFolder, SWT.NONE);
+		SportFacilityGUI sportFacilityGUI = new SportFacilityGUI(tabFolder,
+				SWT.NONE);
 		tbtmSportFacilities.setControl(sportFacilityGUI);
-		
+
 		TabItem tbtmRoomBookings = new TabItem(tabFolder, SWT.NONE);
 		tbtmRoomBookings.setText("Room Bookings");
 
 		RoomBookingGUI roomBookingGUI = new RoomBookingGUI(tabFolder, SWT.NONE);
 		tbtmRoomBookings.setControl(roomBookingGUI);
-		
+
 		TabItem tbtmSportFacilityBookings = new TabItem(tabFolder, SWT.NONE);
 		tbtmSportFacilityBookings.setText("Sport Facility Bookings");
 
-		SportFacilityBookingGUI sportFacilityBookingGUI = new SportFacilityBookingGUI(tabFolder, SWT.NONE);
+		SportFacilityBookingGUI sportFacilityBookingGUI = new SportFacilityBookingGUI(
+				tabFolder, SWT.NONE);
 		tbtmSportFacilityBookings.setControl(sportFacilityBookingGUI);
 
 		Menu menu = new Menu(shell, SWT.BAR);
@@ -148,17 +151,10 @@ public class MainProgram {
 			public void widgetSelected(SelectionEvent e) {
 				MessageBox box = new MessageBox(shell);
 				box.setText("About");
-				box.setMessage("Group nr. 1"
-				+"\n\n" +
-				"Cristi Toma"
-				+"\n" +
-				"Cristian Dan Cojocaru"
-				+"\n" +
-				 "Elisabeta Rebeca Roata"
-				+"\n" +
-				 "Laszlo Czegledi"
-				+"\n" +
-				 "Madalin Claudiu Danceanu");
+				box.setMessage("Group nr. 1" + "\n\n" + "Cristi Toma" + "\n"
+						+ "Cristian Dan Cojocaru" + "\n"
+						+ "Elisabeta Rebeca Roata" + "\n" + "Laszlo Czegledi"
+						+ "\n" + "Madalin Claudiu Danceanu");
 				box.open();
 			}
 		});

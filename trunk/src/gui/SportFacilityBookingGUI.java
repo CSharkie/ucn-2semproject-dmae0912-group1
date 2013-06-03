@@ -35,7 +35,7 @@ import controller.SportFacilityBookingCtr;
 
 public class SportFacilityBookingGUI extends Composite {
 
-	SportFacilityBookingCtr sportFacilityBookingCtr;
+	private SportFacilityBookingCtr sportFacilityBookingCtr;
 
 	// Tables
 	private Table table;
@@ -518,35 +518,32 @@ public class SportFacilityBookingGUI extends Composite {
 	private void showSportFacilityBooking(int id) {
 		SportFacilityBooking sportFacilityBooking = sportFacilityBookingCtr
 				.searchSportFacilityBookingById(id);
-		if(sportFacilityBooking != null)
-		{
-		txt_id.setText(String.valueOf(sportFacilityBooking
-				.getSportFacilityBookingId()));
-		txt_totalPrice.setText(String.valueOf(sportFacilityBooking
-				.getTotalPrice()));
-		txt_ownerGuest.setText(String.valueOf(sportFacilityBooking
-				.getOwnerGuest().getPersonId()));
+		if (sportFacilityBooking != null) {
+			txt_id.setText(String.valueOf(sportFacilityBooking
+					.getSportFacilityBookingId()));
+			txt_totalPrice.setText(String.valueOf(sportFacilityBooking
+					.getTotalPrice()));
+			txt_ownerGuest.setText(String.valueOf(sportFacilityBooking
+					.getOwnerGuest().getPersonId()));
 
-		txt_id.setEditable(false);
-		txt_totalPrice.setEditable(false);
-		txt_ownerGuest.setEditable(false);
+			txt_id.setEditable(false);
+			txt_totalPrice.setEditable(false);
+			txt_ownerGuest.setEditable(false);
 
-		btnAdd.setEnabled(false);
-		btnDel.setEnabled(false);
-		txt_sportFacilityId.setEditable(false);
-		txt_StartDate.setEditable(false);
-		txt_EndDate.setEditable(false);
+			btnAdd.setEnabled(false);
+			btnDel.setEnabled(false);
+			txt_sportFacilityId.setEditable(false);
+			txt_StartDate.setEditable(false);
+			txt_EndDate.setEditable(false);
 
-		showSportFacilityBookingLines(sportFacilityBooking
-				.getSportFacilityBookingId());
+			showSportFacilityBookingLines(sportFacilityBooking
+					.getSportFacilityBookingId());
 
-		btn_create.setEnabled(true);
-		btn_edit.setEnabled(true);
-		btn_delete.setEnabled(true);
-		btn_save.setEnabled(false);
-		}
-		else
-		{
+			btn_create.setEnabled(true);
+			btn_edit.setEnabled(true);
+			btn_delete.setEnabled(true);
+			btn_save.setEnabled(false);
+		} else {
 			MessageBox box = new MessageBox(getShell(), 0);
 			box.setText("Error");
 			box.setMessage("There was an error. Please try again");

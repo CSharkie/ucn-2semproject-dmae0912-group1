@@ -33,7 +33,8 @@ public class DBInstructor extends DBEmployee implements IFDBInstructor {
 	// get some Instructor having the Name
 	public LinkedList<Instructor> searchInstructorByName(String instructorName,
 			boolean retriveAssociation) {
-		String wClause = " p.firstname LIKE '%" + instructorName + "%' OR p.surname LIKE '%" + instructorName + "%'";
+		String wClause = " p.firstname LIKE '%" + instructorName
+				+ "%' OR p.surname LIKE '%" + instructorName + "%'";
 		return miscWhere(wClause, retriveAssociation);
 	}
 

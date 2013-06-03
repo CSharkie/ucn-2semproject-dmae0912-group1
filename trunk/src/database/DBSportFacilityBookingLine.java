@@ -20,20 +20,24 @@ public class DBSportFacilityBookingLine extends DBBookingLine implements
 	// get all SportFacilityBookingLines
 	public LinkedList<SportFacilityBookingLine> getAllSportFacilityBookingLines(
 			int sportFacilityBookingId, boolean retrieveAssociation) {
-		String wClause = "s.SportFacilityBookingId = '" + sportFacilityBookingId + "'";
+		String wClause = "s.SportFacilityBookingId = '"
+				+ sportFacilityBookingId + "'";
 		return miscWhere(wClause, retrieveAssociation);
 	}
 
 	// get one SportFacilityBookingLine having the ID
-	public SportFacilityBookingLine searchSportFacilityBookingLineById(int sportFacilityBookingLineId,
-			boolean retriveAssociation) {
-		String wClause = " s.SportFacilityBookingLineId = '" + sportFacilityBookingLineId + "'";
+	public SportFacilityBookingLine searchSportFacilityBookingLineById(
+			int sportFacilityBookingLineId, boolean retriveAssociation) {
+		String wClause = " s.SportFacilityBookingLineId = '"
+				+ sportFacilityBookingLineId + "'";
 		return singleWhere(wClause, retriveAssociation);
 	}
 
 	// insert a new SportFacilityBookingLine
-	public int insertSportFacilityBookingLine(SportFacilityBookingLine sportFacilityBookingLine)
-			throws Exception { // call to get
+	public int insertSportFacilityBookingLine(
+			SportFacilityBookingLine sportFacilityBookingLine) throws Exception { // call
+																					// to
+																					// get
 		// the next Id
 		// number
 		int nextId = super.insertBookingLine(sportFacilityBookingLine);
@@ -43,10 +47,11 @@ public class DBSportFacilityBookingLine extends DBBookingLine implements
 		String query = "INSERT INTO SportFacilityBookingLine(bookingLineId, sportFacilityBookingId, sportFacilityId) VALUES ('"
 				+ nextId
 				+ "','"
-				+ sportFacilityBookingLine.getSportFacility().getSportFacilityId()
+				+ sportFacilityBookingLine.getSportFacility()
+						.getSportFacilityId()
 				+ "','"
-				+ sportFacilityBookingLine.getSportFacilityBooking().getSportFacilityBookingId()
-				+ "');";
+				+ sportFacilityBookingLine.getSportFacilityBooking()
+						.getSportFacilityBookingId() + "');";
 
 		System.out.println("insert : " + query);
 		try { // insert new RoomBookingLine
@@ -63,13 +68,18 @@ public class DBSportFacilityBookingLine extends DBBookingLine implements
 	}
 
 	@Override
-	public int updateSportFacilityBookingLine(SportFacilityBookingLine sportFacilityBookingLine) {
+	public int updateSportFacilityBookingLine(
+			SportFacilityBookingLine sportFacilityBookingLine) {
 		int rc = -1;
 		super.updateBookingLine(sportFacilityBookingLine);
-		String query = "UPDATE SportFacilityBookingLine SET " + "sportFacilityId ='"
-				+ sportFacilityBookingLine.getSportFacility().getSportFacilityId() + "', "
+		String query = "UPDATE SportFacilityBookingLine SET "
+				+ "sportFacilityId ='"
+				+ sportFacilityBookingLine.getSportFacility()
+						.getSportFacilityId()
+				+ "', "
 				+ "sportFacilityBookingId ='"
-				+ sportFacilityBookingLine.getSportFacilityBooking().getSportFacilityBookingId()
+				+ sportFacilityBookingLine.getSportFacilityBooking()
+						.getSportFacilityBookingId()
 				+ " WHERE bookingLineId = '"
 				+ sportFacilityBookingLine.getBookingLineId() + "'";
 		System.out.println("Update query:" + query);
@@ -81,7 +91,9 @@ public class DBSportFacilityBookingLine extends DBBookingLine implements
 			stmt.close();
 		}// end try
 		catch (Exception ex) {
-			System.out.println("Update exception in SportFacilityBookingLine db: " + ex);
+			System.out
+					.println("Update exception in SportFacilityBookingLine db: "
+							+ ex);
 		}
 		return (rc);
 	}
@@ -159,17 +171,22 @@ public class DBSportFacilityBookingLine extends DBBookingLine implements
 	}
 
 	// method to build an RoomBookingLine object
-	private SportFacilityBookingLine buildSportFacilityBookingLine(ResultSet results) {
+	private SportFacilityBookingLine buildSportFacilityBookingLine(
+			ResultSet results) {
 		SportFacilityBookingLine sportFacilityBookingLine = new SportFacilityBookingLine();
 		try { // the columns from the table RoomBookingLine are used
-			sportFacilityBookingLine.setBookingLineId(results.getInt("bookingLineId"));
+			sportFacilityBookingLine.setBookingLineId(results
+					.getInt("bookingLineId"));
 			sportFacilityBookingLine.setStartDateTime(results
 					.getTimestamp("startDateTime"));
-			sportFacilityBookingLine.setEndDateTime(results.getTimestamp("endDateTime"));
+			sportFacilityBookingLine.setEndDateTime(results
+					.getTimestamp("endDateTime"));
 			sportFacilityBookingLine.setSubtotal(results.getDouble("subtotal"));
-			sportFacilityBookingLine.setSportFacility(new SportFacility(results.getInt("sportFacilityId")));
-			sportFacilityBookingLine.setSportFacilityBooking(new SportFacilityBooking(results
-					.getInt("sportFacilityBookingId")));
+			sportFacilityBookingLine.setSportFacility(new SportFacility(results
+					.getInt("sportFacilityId")));
+			sportFacilityBookingLine
+					.setSportFacilityBooking(new SportFacilityBooking(results
+							.getInt("sportFacilityBookingId")));
 		} catch (Exception e) {
 			System.out.println(e);
 		}

@@ -106,11 +106,13 @@ public class RoomBookingCtr {
 	public int updateRoomBookingLineDepAndCheck(int roomBookingLineId,
 			String depositStatus, Date checkInDateTime) {
 		Timestamp checkIn = null;
-		if(checkInDateTime != null) checkIn = new Timestamp(checkInDateTime.getTime());
+		if (checkInDateTime != null)
+			checkIn = new Timestamp(checkInDateTime.getTime());
 		IFDBRoomBookingLine dbRoomBookingLine = new DBRoomBookingLine();
 		RoomBookingLine roomBookingline = new RoomBookingLine(
 				roomBookingLineId, depositStatus, checkIn);
-		return dbRoomBookingLine.updateRoomBookingLineDepAndCheck(roomBookingline);
+		return dbRoomBookingLine
+				.updateRoomBookingLineDepAndCheck(roomBookingline);
 	}
 
 	public void removeRoomBoolingLine(int roomBookingLineId) {

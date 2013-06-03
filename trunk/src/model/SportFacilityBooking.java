@@ -2,13 +2,14 @@ package model;
 
 public class SportFacilityBooking {
 
-	int sportFacilityBookingId;
-	double totalPrice;
-	LinkedList<SportFacilityBookingLine> sportFacilityBookingLines;
-	Guest ownerGuest;
+	private int sportFacilityBookingId;
+	private double totalPrice;
+	private LinkedList<SportFacilityBookingLine> sportFacilityBookingLines;
+	private Guest ownerGuest;
 
 	public SportFacilityBooking(int sportFacilityBookingId, double totalPrice,
-			LinkedList<SportFacilityBookingLine> sportFacilityBookingLines, Guest ownerGuest) {
+			LinkedList<SportFacilityBookingLine> sportFacilityBookingLines,
+			Guest ownerGuest) {
 		this.sportFacilityBookingId = sportFacilityBookingId;
 		this.totalPrice = totalPrice;
 		this.sportFacilityBookingLines = sportFacilityBookingLines;
@@ -16,17 +17,18 @@ public class SportFacilityBooking {
 	}
 
 	public SportFacilityBooking(double totalPrice,
-			LinkedList<SportFacilityBookingLine> sportFacilityBookingLines, Guest ownerGuest) {
+			LinkedList<SportFacilityBookingLine> sportFacilityBookingLines,
+			Guest ownerGuest) {
 		this.totalPrice = totalPrice;
 		this.sportFacilityBookingLines = sportFacilityBookingLines;
 		this.ownerGuest = ownerGuest;
 	}
 
-
 	public SportFacilityBooking() {
 	}
 
-	public SportFacilityBooking(int sportFacilityBookingId, double totalPrice, Guest ownerGuest) {
+	public SportFacilityBooking(int sportFacilityBookingId, double totalPrice,
+			Guest ownerGuest) {
 		this.sportFacilityBookingId = sportFacilityBookingId;
 		this.totalPrice = totalPrice;
 		this.ownerGuest = ownerGuest;
@@ -61,7 +63,8 @@ public class SportFacilityBooking {
 		return sportFacilityBookingLines;
 	}
 
-	public void setSportFacilityBookingLines(LinkedList<SportFacilityBookingLine> sportFacilityBookingLines) {
+	public void setSportFacilityBookingLines(
+			LinkedList<SportFacilityBookingLine> sportFacilityBookingLines) {
 		this.sportFacilityBookingLines = sportFacilityBookingLines;
 	}
 
@@ -73,7 +76,8 @@ public class SportFacilityBooking {
 		this.ownerGuest = ownerGuest;
 	}
 
-	public void addSportFacilityBookingLine(SportFacilityBookingLine sportFacilityBookingLine) {
+	public void addSportFacilityBookingLine(
+			SportFacilityBookingLine sportFacilityBookingLine) {
 		sportFacilityBookingLines.add(sportFacilityBookingLine);
 	}
 }

@@ -3,15 +3,16 @@ package model;
 import java.sql.Timestamp;
 
 public class RoomBookingLine extends BookingLine {
-	
-	Timestamp checkInDateTime;
-	String depositStatus;
-	LinkedList<Guest> guests;
-	Room room;
-	RoomBooking roomBooking;
-	
-	public RoomBookingLine(int bookingLineId, RoomBooking roomBooking, Timestamp startDateTime,
-			Timestamp endDateTime, Double subtotal, Timestamp checkInDateTime, String depositStatus, Room room) {
+
+	private Timestamp checkInDateTime;
+	private String depositStatus;
+	private LinkedList<Guest> guests;
+	private Room room;
+	private RoomBooking roomBooking;
+
+	public RoomBookingLine(int bookingLineId, RoomBooking roomBooking,
+			Timestamp startDateTime, Timestamp endDateTime, Double subtotal,
+			Timestamp checkInDateTime, String depositStatus, Room room) {
 		super(bookingLineId, startDateTime, endDateTime, subtotal);
 		this.checkInDateTime = checkInDateTime;
 		this.depositStatus = depositStatus;
@@ -19,9 +20,10 @@ public class RoomBookingLine extends BookingLine {
 		this.room = room;
 		this.roomBooking = roomBooking;
 	}
-	
+
 	public RoomBookingLine(RoomBooking roomBooking, Timestamp startDateTime,
-			Timestamp endDateTime, Double subtotal, Timestamp checkInDateTime, String depositStatus, Room room) {
+			Timestamp endDateTime, Double subtotal, Timestamp checkInDateTime,
+			String depositStatus, Room room) {
 		super(startDateTime, endDateTime, subtotal);
 		this.checkInDateTime = checkInDateTime;
 		this.depositStatus = depositStatus;
@@ -64,9 +66,8 @@ public class RoomBookingLine extends BookingLine {
 	public void setDepositStatus(String depositStatus) {
 		this.depositStatus = depositStatus;
 	}
-	
-	public void addGuest(Guest guest)
-	{
+
+	public void addGuest(Guest guest) {
 		guests.add(guest);
 	}
 
@@ -76,7 +77,6 @@ public class RoomBookingLine extends BookingLine {
 
 	public void setRoomBooking(RoomBooking roomBooking) {
 		this.roomBooking = roomBooking;
-	}	
-	
-	
+	}
+
 }

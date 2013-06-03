@@ -28,7 +28,7 @@ import org.eclipse.swt.layout.GridData;
 
 public class RoomGUI extends Composite {
 
-	RoomCtr roomCtr;
+	private RoomCtr roomCtr;
 
 	// Tables
 	private Table table;
@@ -74,18 +74,17 @@ public class RoomGUI extends Composite {
 			public void widgetSelected(SelectionEvent e) {
 				int id = 0;
 				boolean error = false;
-				try
-				{
+				try {
 					id = Integer.parseInt(search_id.getText());
-				}
-				catch (NumberFormatException ex) {
+				} catch (NumberFormatException ex) {
 					MessageBox box = new MessageBox(getShell(), 0);
 					box.setText("Error");
 					box.setMessage("There was an error. Please try again");
 					box.open();
 					error = true;
 				}
-				if(!error) showSearchedRooms(id);
+				if (!error)
+					showSearchedRooms(id);
 			}
 		});
 		btn_search.setText("Search");

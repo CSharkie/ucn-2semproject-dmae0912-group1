@@ -3,19 +3,19 @@ package model;
 import java.sql.Timestamp;
 
 public abstract class BookingLine {
-	int bookingLineId;
-	Timestamp startDateTime;
-	Timestamp endDateTime;
-	Double subtotal;
-	
-	protected BookingLine(int bookingLineId, Timestamp startDateTime, Timestamp endDateTime,
-			Double subtotal) {
+	private int bookingLineId;
+	private Timestamp startDateTime;
+	private Timestamp endDateTime;
+	private Double subtotal;
+
+	protected BookingLine(int bookingLineId, Timestamp startDateTime,
+			Timestamp endDateTime, Double subtotal) {
 		this.bookingLineId = bookingLineId;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.subtotal = subtotal;
 	}
-	
+
 	protected BookingLine(Timestamp startDateTime, Timestamp endDateTime,
 			Double subtotal) {
 		this.startDateTime = startDateTime;
@@ -60,5 +60,5 @@ public abstract class BookingLine {
 
 	public void setSubtotal(Double subtotal) {
 		this.subtotal = subtotal;
-	}	
+	}
 }

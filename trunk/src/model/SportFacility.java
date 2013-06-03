@@ -2,18 +2,18 @@ package model;
 
 public class SportFacility {
 
-	int sportFacilityId;
-	String name;
-	int maxPersons;
-	double cost;
-	String type;
-	int numberOfLocations;
-	LinkedList<Instructor> instructors;
+	private int sportFacilityId;
+	private String name;
+	private int maxPersons;
+	private double cost;
+	private String type;
+	private int numberOfLocations;
+	private LinkedList<Instructor> instructors;
 
 	public SportFacility() {
 
 	}
-	
+
 	public SportFacility(int sportFacilityId, String name, int maxPersons,
 			double cost, String type, int numberOfLocations) {
 		this.sportFacilityId = sportFacilityId;
@@ -24,9 +24,6 @@ public class SportFacility {
 		this.numberOfLocations = numberOfLocations;
 	}
 
-
-	
-
 	public SportFacility(String name, int maxPersons, double cost, String type,
 			int numberOfLocations) {
 		this.name = name;
@@ -35,8 +32,6 @@ public class SportFacility {
 		this.type = type;
 		this.numberOfLocations = numberOfLocations;
 	}
-
-
 
 	public SportFacility(int sportFacilityId) {
 		this.sportFacilityId = sportFacilityId;
